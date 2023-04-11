@@ -4,9 +4,9 @@ import { styles } from "./style";
 
 
 export function Login() {
+  const navigation = useNavigation();
 
   function openScreen(){
-    const navigation = useNavigation();
     navigation.navigate('Sign' as never);
   }
 

@@ -8,8 +8,20 @@ const Stack = createNativeStackNavigator();
 function LogRoutes() {
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Sign" component={Sign} />
+        <Stack.Screen 
+          name="Login" 
+          component={Login} 
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen 
+          name="Sign" 
+          component={Sign} 
+          options={{
+            headerShown: false
+          }}
+        />
     </Stack.Navigator>
   );
 }
