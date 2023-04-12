@@ -5,8 +5,8 @@ import { TabsRoutes } from "./tab.routes";
 function Routes(){
     return (
         <NavigationContainer>
-            <TabsRoutes/>
-            {/* <LogRoutes/> */}
+            {/* <TabsRoutes/> */}
+            <LogRoutes/>
         </NavigationContainer>
     )
 }

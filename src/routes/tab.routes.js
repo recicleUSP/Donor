@@ -2,7 +2,8 @@ import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SimpleIcon } from '../components/icons'
 import { Colors,Theme } from '../constants/setting'
-
+import { Size28 } from '../constants/scales'
+ 
 const Tab = createBottomTabNavigator();
 
 import { Home }   from "../screens/home"
@@ -11,8 +12,6 @@ import { Notice } from "../screens/notice"
 import { Profile } from "../screens/profile"
 
 function TabsRoutes() {
-  const iconSize = 25;
-
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -33,7 +32,7 @@ function TabsRoutes() {
         component={Profile} 
         options={{
           title: "Perfil",
-          tabBarIcon: ({ color }) => (<SimpleIcon name="account" color={color} size={iconSize} />),
+          tabBarIcon: ({ color }) => (<SimpleIcon name="account" color={color} size={Size28} />),
         }}
       />
       <Tab.Screen 
@@ -41,7 +40,7 @@ function TabsRoutes() {
         component={Advice} 
         options={{
           title: "Avisos",
-          tabBarIcon: ({ color }) => <SimpleIcon name="alert-octagon" color={color}  size={iconSize} />,          
+          tabBarIcon: ({ color }) => <SimpleIcon name="alert-octagon" color={color}  size={Size28} />,          
         }}
       />
       <Tab.Screen 
@@ -49,7 +48,7 @@ function TabsRoutes() {
         component={Notice} 
         options={{
           title: "Notificação",
-          tabBarIcon: ({ color }) => ( <SimpleIcon name="bell" color={color} size={iconSize} />),
+          tabBarIcon: ({ color }) => ( <SimpleIcon name="bell" color={color} size={Size28} />),
         }}
       />
       <Tab.Screen 
@@ -57,7 +56,7 @@ function TabsRoutes() {
         component={Home} 
         options={{
           title: "Início",
-          tabBarIcon: ({ color }) => ( <SimpleIcon name="recycle" color={color}  size={iconSize} />),
+          tabBarIcon: ({ color }) => ( <SimpleIcon name="recycle" color={color}  size={Size28} />),
         }}
       />
       
