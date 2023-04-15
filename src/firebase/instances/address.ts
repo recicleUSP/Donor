@@ -1,11 +1,11 @@
-interface Address {
-    title:          string,    
-    street:         string,
-    neighborhood:   string,
-    city:           string,
-    reference:      string,
-    num:            number,
-    cep:            number   
+const Address = {
+    title:          "",    
+    street:         "",
+    neighborhood:   "",
+    city:           "",
+    reference:      "",
+    num:            0,
+    cep:            0   
 }
 
 export {Address};

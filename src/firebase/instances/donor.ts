@@ -1,20 +1,15 @@
-import {Address} from "./address";
 import {Statistic} from "./statistic";
 
-interface Donor {
-    email:      string,
-    name:       string,    
-    phone:      string,
-    photoUrl:   string,
-    prize:      number,
-    donations:  Array<string>,
-    address:    Array<Address>,
+const Donor = {
+    email:      null,
+    name:       null,    
+    phone:      null,
+    photoUrl:   null,
+    prize:      0,
+    donations:  null,
+    address:    null,
     statistic:  Statistic
 };
 
-interface SignData {
-    donor: Donor,
-    senha: string
-}
 
-export {SignData};
+export {Donor};

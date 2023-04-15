@@ -1,7 +1,4 @@
 import * as React from "react";
-import * as Font from "expo-font";
-import { FontAwesome } from "@expo/vector-icons";
-import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
   Montserrat_700Bold,
@@ -11,7 +8,8 @@ import {
   
 } from "@expo-google-fonts/montserrat";
 
-import {Routes} from "./src/routes/index"
+import { Routes } from "./src/routes/index"
+import { DonorProvider } from "./src/contexts/donor"
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -26,6 +24,8 @@ export default function App() {
   } 
 
   return (
-    <Routes/>
+    <DonorProvider>
+      <Routes/>
+    </DonorProvider>
   );
 }

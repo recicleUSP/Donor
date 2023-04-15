@@ -1,23 +1,27 @@
 export const Colors = {
     "light" : [
-        "#fafffd",      // Fundo das Telas (Branco 1)
-        "#ededeb",      // Fundo das Telas (Branco 2)
-        "#a7f3d0",      // Primária (Verde da barra)
-        "#10b981",      // Secundária (Verde mais claro)
-        "#1A1919",      // Texto mais forte (principal)
-        "#9A9A9A",      // Textos mais fracos (secundários)
-        "#a7f3d0",      // Textos (titulo)
-        "#fafffd"       // Logo
+        "#fafffd",      // (0) Fundo das Telas (Branco 1)
+        "#ededeb",      // (1) Fundo das Telas (Branco 2)
+        "#10b981",      // (2) Primária (Verde da barra)
+        "#a7f3d0",      // (3) Secundária (Verde mais claro)
+        "#1A1919",      // (4) Texto mais forte (principal)
+        "#9A9A9A",      // (5) Textos mais fracos (secundários)
+        "#10b981",      // (6) Textos (titulo)
+        "#fafffd",      // (7) Logo
+        "#fa1616",      // (8) Error 
+        "#199125"       // (9) Successs   
     ],
     "dark" : [
-        "#000000",      // Fundo das Telas (Preto 1)
-        "#3d3d3d",      // Fundo das Telas (Preto 2)
-        "#065f46",      // Primária (Verde da barra)
-        "#10b981",      // Secundária (Verde mais claro)
-        "#fafffd",      // Texto mais forte (principal)
-        "#bfbdbd",      // Textos mais fracos (secundários)
-        "#a7f3d0",      // Textos (titulo)
-        "#3d3d3d"       // Logo
+        "#000000",      // (0) Fundo das Telas (Preto 1)
+        "#3d3d3d",      // (1) Fundo das Telas (Preto 2)
+        "#065f46",      // (2) Primária (Verde da barra)
+        "#10b981",      // (3) Secundária (Verde mais claro)
+        "#fafffd",      // (4) Texto mais forte (principal)
+        "#bfbdbd",      // (5) Textos mais fracos (secundários)
+        "#10b981",      // (6) Textos (titulo)
+        "#fafffd",      // (7) Logo
+        "#f24c49",      // (8) Error 
+        "#28ed3c"       // (9) Successs  
     ]
 };
 

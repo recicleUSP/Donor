@@ -8,12 +8,13 @@ const scaleFont = (size: number) => size * PixelRatio.getFontScale();
 
 // FONT FAMILY
 const familyBold        = "Montserrat_700Bold";
-const familyLight       = " Montserrat_300Light";
+const familyLight       = "Montserrat_300Light";
 const familyRegular     = "Montserrat_400Regular";
 const familySemibold    = "Montserrat_600SemiBold";
 
 // FONT SIZE
-const Size130   = scaleFont(130);
+const Size110   = scaleFont(110);
+const Size50   = scaleFont(50);
 const Size28    = scaleFont(28);
 const Size20    = scaleFont(20);
 const Size18    = scaleFont(18);
@@ -35,7 +36,8 @@ const FontSemibold  = {letterSpacing: 0,        fontFamily: familySemibold};
 export {
     Width, 
     Height, 
-    Size130,
+    Size110,
+    Size50,
     Size28, 
     Size20, 
     Size18, 
