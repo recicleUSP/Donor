@@ -1,7 +1,29 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import { SimpleIcon } from "../components/icons";
 import { Colors, Theme, Name } from "../constants/setting";
-import { Size110, Size28, Height, FontBold } from "../constants/scales"
+import { Size110, Size28, Height, FontBold, Size20 } from "../constants/scales"
+import FastImage from 'react-native-fast-image';
+import { SizedBox } from 'sizedbox';
+
+const CircleImage = ({ uri, size }) => {
+  return (
+    <View
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        overflow: 'hidden',
+      }}
+    >
+      <FastImage
+        source={{ uri }}
+        style={{ width: size, height: size }}
+      />
+    </View>
+  );
+};
+
+export default CircleImage;
 
 export const ContainerTop = () => {
     const img = require("../../assets/images/logo.png");
@@ -9,6 +31,20 @@ export const ContainerTop = () => {
         <View style={styles.containerTop}>
             <Image style={styles.logo} source={img} alt="Recicle++" />
             <Text style={styles.textTop}>{Name}</Text>
+        </View>
+    );
+};
+
+export const ContainerTopNormal = () => {
+    const img = require("../../assets/images/logo.png");
+    const newLocal = (img, 35);
+    return (
+        <View style={styles.containerTop}>
+            {/* <Image style={styles.logo} source={img} alt="Recicle++" /> */}
+            <SizedBox vertical={50}/>
+            <SizedBox horizontal={40}/>
+            <Text style={styles.textNormal}>{"Bem vindo Leonardo!"}</Text>
+            {/* CircleImage({ newLocal}); */}
         </View>
     );
 };
@@ -40,6 +76,12 @@ const styles = StyleSheet.create({
         paddingTop: Height * 0.02,
         color: Colors[Theme][7],
         fontSize: Size28,
+        ...FontBold
+    },
+    textNormal: {
+        paddingTop: Height * 0.02,
+        color: Colors[Theme][7],
+        fontSize: Size20,
         ...FontBold
     },
     logo: {
