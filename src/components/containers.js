@@ -1,8 +1,8 @@
 import { Text, View, Image, StyleSheet } from "react-native";
-import { SimpleIcon } from "../components/icons";
 import { Colors, Theme, Name } from "../constants/setting";
 import { Size110, Size28, Height, FontBold, Size20 } from "../constants/scales"
 import FastImage from 'react-native-fast-image';
+import { TitleColor } from "./titles"
 import { SizedBox } from 'sizedbox';
 
 const CircleImage = ({ uri, size }) => {
@@ -53,15 +53,13 @@ export const ContainerData = ({
     children,           // Componente filho do container
     title               // titulo da rotina do container
 }) => {
-
     return (
         <View style={styles.containerData}>
-            <Text style={styles.textData}>{title}</Text>
+            <TitleColor content={title}/>
             {children}
         </View>
     )
 };
-
 
 const styles = StyleSheet.create({
     containerTop: {

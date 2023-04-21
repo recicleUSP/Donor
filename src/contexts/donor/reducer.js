@@ -5,14 +5,14 @@ import { Sign, Login, LoginWithGoogle } from "../../firebase/providers/donor"
 export const reducer = (state, action) => {
     switch(action.type){
         case Types.LOGIN: {
-            Login({email: state.email, pass: action.payload}, action.dispatch);
+            Login({email: state.email, pass: action.payload}, action.dispatch, action.cb);
             return {...state};
         }
         case Types.LOGOUT: {
             return {...state};
         }
         case Types.SIGN: {
-            Sign({...state, pass: action.payload}, action.dispatch);
+            Sign({...state, pass: action.payload}, action.dispatch, action.cb);
             return {...state};
         }
         case Types.LOGINGOOGLE: {

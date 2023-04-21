@@ -1,20 +1,23 @@
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { Width, FontSemibold} from "../constants/scales";
+import { Colors, Theme } from "../constants/setting";
+import { Size28 } from "../constants/scales";
 import { SimpleIcon } from "./icons";
 
 const ButtonDefault = ({
-    title,          // Titulo do button
-    color,          // Cor principal do button
-    textColor,      // Cor do Text
-    textSize,       // Tamanho do Texto
-    width,          // Largura do button 0-1
-    padding = 12,   // Padding padrão entre os textos 
-    opacity = 1,    // Define a opacidade do button
-    fun = null      // Função que será executada a cada click
+    title,                              // Titulo do button
+    textSize = Size28,                  // Tamanho do Texto
+    width = 0.8,                        // Largura do button 0-1
+    color = Colors[Theme][2],           // Cor principal do button
+    textColor = Colors[Theme][1],       // Cor do Text
+    padding = 12,                       // Padding padrão entre os textos 
+    opacity = 1,                        // Define a opacidade do button
+    radius = 0,                         // Circuferência do button
+    fun = null                          // Função que será executada a cada click
 }) => {
     return (
         <TouchableOpacity onPress={fun}>
-            <View  style={{backgroundColor: color, opacity: opacity, width: Width*width, alignItems:"center", padding: padding}}>
+            <View  style={{backgroundColor: color, opacity: opacity, width: Width*width, alignItems:"center", padding: padding, borderRadius: radius}}>
                 <Text style={{color: textColor, fontSize: textSize, ...FontSemibold}}>{title}</Text>
             </View>
         </TouchableOpacity>

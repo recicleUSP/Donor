@@ -2,28 +2,38 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthP
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
 import { Firestore, Auth } from "../config/connection";
+import { VerifyErroCode } from "../config/errors";
 import * as Types from "../../contexts/donor/types";
 import P from 'prop-types';
 
 
-const Sign = async (data, dispach) => { 
+const Sign = async (data, dispach, callback) => { 
   
   createUserWithEmailAndPassword(Auth, data.email, data.pass)
-  .then(async (userCredential) => {
-    
-    const user = userCredential.user;
-    
+  .then(async (userCredential) => {  
+    const user = userCredential.user; 
+
     delete data.pass;
     delete data.id;
     delete data.logged;
-    
     try {
         await setDoc(doc(Firestore, "donor", user.uid), data);
         dispach({type: Types.SETLOGGED, payload: {id: user.uid}});          
-      } catch (e) {
-        console.error("Error adding document: ", e);
+      } catch (err) {
+        const error = {
+          title: "Falha ao cadastrar",
+          content: VerifyErroCode(err.code)
+        }
+        callback(error);
       }
-  })
+  }).catch(err => {
+    const error = {
+      title: "Falha ao cadastrar",
+      content: VerifyErroCode(err.code)
+    }
+    callback(error);
+  });
+
 }
 Sign.propTypes = {
   data: P.instanceOf(Map).isRequired,
@@ -31,14 +41,18 @@ Sign.propTypes = {
 }
 
 
-async function Login(data, dispach) {
+async function Login(data, dispach, callback) {
   signInWithEmailAndPassword(Auth, data.email, data.pass)
   .then(async (userCredential) => {
     const ref  = userCredential.user;
     const user = await getDoc(doc(Firestore, 'donor', ref.uid));
-
-    console.log("USER: >> ", );
     dispach({type: Types.SETLOGGED, payload: {...user.data(), id: ref.uid}});    
+  }).catch((err)=>{
+    const error = {
+      title: "Falha ao autenticar",
+      content: VerifyErroCode(err.code)
+    }
+    callback(error);
   })
 }
 Login.propTypes = {

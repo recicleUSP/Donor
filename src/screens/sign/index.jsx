@@ -1,13 +1,16 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useContext, useState } from "react";
 import { SizedBox } from 'sizedbox';
 
 import { ContainerTop, ContainerData } from "../../components/containers";
 import { InputIcon,InputIconMask } from "../../components/inputs";
 import { ButtonDefault } from "../../components/buttons";
+import { Size20, Height, Width } from "../../constants/scales";
 import { Colors,Theme } from "../../constants/setting";
-import { Size20 } from "../../constants/scales";
-import { DonorContext } from "../../contexts/donor/context"
+import { DonorContext } from "../../contexts/donor/context";
+import { Error } from "../../components/error";
+import { Loading } from "../../components/loading";
+import { Styles } from "./style";
 import * as Types from "../../contexts/donor/types";
 import * as Errors from "../../constants/erros";
 import * as Validation from "../../utils/validation";
@@ -19,6 +22,9 @@ export function Sign() {
   const {donorState, donorDispach} = useContext(DonorContext)
   const [pass, setPass]            = useState("");
   const [hide, setHide]            = useState(false);
+  const [loandding, setLoadding]   = useState(false);
+  const [error, setError]          = useState(false);
+
 
   const [nameErr, setNameErr]   = useState("");
   const [emailErr, setEmailErr] = useState("");
@@ -27,8 +33,6 @@ export function Sign() {
 
   function validation(){
     let valid = false;
-
-   
     if(Validation.nameValidation(donorState.name)) {
       setNameErr(Errors.nameErr);
       valid = true;
@@ -54,8 +58,13 @@ export function Sign() {
 
   function sign(){
     if(validation()) return false;
+    setLoadding(true); 
+    donorDispach({type: Types.SIGN, payload: pass, dispatch: donorDispach, cb:callback});
+  }
 
-    donorDispach({type: Types.SIGN, payload: pass, dispatch: donorDispach});
+  function callback(error){
+    setLoadding(false);
+    setError(error);
   }
 
   const handleChange = (value, type) => {
@@ -63,63 +72,66 @@ export function Sign() {
   }
 
   return (
-    <ScrollView>
-       <ContainerTop/>
-       <ContainerData title={"Cadastro"}>
-          <InputIcon 
-            onChange = {(value) => {handleChange(value, Types.SETNAME); setNameErr("")}}
-            value = {donorState.name}
-            placeholder = {"Digite seu nome"}
-            label = "Nome"
-            icon = "account"
-            errorMsg={nameErr}
-          />
+    <View style={Styles.container}>
+      {error && <Error error={error} closeFunc={() => setError(false)}/>}
+      {loandding && <Loading/>}
+      <ScrollView>
+        <ContainerTop/>
+        <ContainerData title={"Cadastro"}>
+            <InputIcon 
+              onChange = {(value) => {handleChange(value, Types.SETNAME); setNameErr("")}}
+              value = {donorState.name}
+              placeholder = {"Digite seu nome"}
+              label = "Nome"
+              icon = "account"
+              errorMsg={nameErr}
+            />
 
-          <InputIconMask 
-            onChange = {(value) => {handleChange(value, Types.SETPHONE); setPhoneErr("")}}
-            value = {donorState.phone}
-            placeholder = {"Digite seu contato"}
-            keyboardType={"number-pad"}
-            label = "Contato"
-            icon = "cellphone"
-            mask={Mask.phoneMask}
-            errorMsg={phoneErr}
-          />
+            <InputIconMask 
+              onChange = {(value) => {handleChange(value, Types.SETPHONE); setPhoneErr("")}}
+              value = {donorState.phone}
+              placeholder = {"Digite seu contato"}
+              keyboardType={"number-pad"}
+              label = "Contato"
+              icon = "cellphone"
+              mask={Mask.phoneMask}
+              errorMsg={phoneErr}
+            />
 
-          <InputIcon 
-            onChange = {(value) => {handleChange(value, Types.SETEMAIL); setEmailErr("")}}
-            value = {donorState.email}
-            placeholder = {"Digite seu email"}
-            label = "Email"
-            icon = "email-outline"
-            errorMsg={emailErr}
-          />
+            <InputIcon 
+              onChange = {(value) => {handleChange(value, Types.SETEMAIL); setEmailErr("")}}
+              value = {donorState.email}
+              placeholder = {"Digite seu email"}
+              label = "Email"
+              icon = "email-outline"
+              errorMsg={emailErr}
+            />
 
-          <InputIcon 
-            onChange = {(value) => {setPass(value); setPassErr("")}}
-            value = {pass}
-            placeholder = {"Digite sua senha"}
-            label = "Senha"
-            msg="Caracteres: maiúsculos, minusculos, especiais e numericos são necessários"
-            icon = {hide ? "eye-outline" : "eye-off-outline"}
-            errorMsg={passErr}
-            btn = {true}
-            cb = {setHide}
-          />  
+            <InputIcon 
+              onChange = {(value) => {setPass(value); setPassErr("")}}
+              value = {pass}
+              placeholder = {"Digite sua senha"}
+              label = "Senha"
+              msg="Caracteres: maiúsculos, minusculos, especiais e numericos são necessários"
+              icon = {hide ? "eye-outline" : "eye-off-outline"}
+              errorMsg={passErr}
+              btn = {true}
+              cb = {setHide}
+            />  
 
-          <SizedBox vertical={10} />
+            <SizedBox vertical={10} />
 
-          <ButtonDefault
-            title={"Cadastrar"}
-            color={Colors[Theme][2]}
-            textColor={Colors[Theme][7]}
-            textSize={Size20}
-            width={0.7}
-            fun={sign}
-          />
-          
-       </ContainerData>
-       
-    </ScrollView>
+            <ButtonDefault
+              title={"Cadastrar"}
+              color={Colors[Theme][2]}
+              textColor={Colors[Theme][7]}
+              textSize={Size20}
+              width={0.7}
+              fun={sign}
+            />      
+        </ContainerData>       
+      </ScrollView>
+      
+    </View>
   );
 }

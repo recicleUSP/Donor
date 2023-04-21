@@ -22,7 +22,7 @@ export function Home() {
     navigation.navigate('Sign' as never);
   }
 
-  const img = require("C:\Users\leoca\projeto-usp-w-versao\Donor\assets\images\logo.png");
+  // const img = require("C:\Users\leoca\projeto-usp-w-versao\Donor\assets\images\logo.png");
 
   return (
     <ScrollView>
