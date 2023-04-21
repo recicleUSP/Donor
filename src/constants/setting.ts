@@ -25,6 +25,6 @@ export const Colors = {
     ]
 };
 
-export const Theme = "light";
+export const Theme = "dark";
 export const Name  = "RECICLE++"; 
 
