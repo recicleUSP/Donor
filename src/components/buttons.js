@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { Width, FontSemibold} from "../constants/scales";
 import { Colors, Theme } from "../constants/setting";
-import { Size28 } from "../constants/scales";
+import { Size28, Size20 } from "../constants/scales";
 import { SimpleIcon } from "./icons";
 
 const ButtonDefault = ({
@@ -39,6 +39,25 @@ const ButtonImage = ({
     );
 }
 
+const ButtonTextIcon = ({
+    fun = null,     // Função que será executada a cada click no botão
+    name,           // Nome do icone a ser inserido
+    iconTxt = "",   // Texto que ficará a frente do icon
+    color,          // Cor que o icone terá
+    size = 25,      // Tamanho do icone
+    margin = 0,     // Margem que o icone terá
+}) => {
+    return (
+        <TouchableOpacity onPress={fun} style={{alignSelf:"flex-end"}}>
+            <View style={{flexDirection: "row"}}>
+                <Text style={{marginRight: 15, color: color, fontSize: Size20*0.9}}>{iconTxt}</Text>
+                <SimpleIcon name={name} size={size} color={color} margin={margin} />
+            </View>
+        </TouchableOpacity>
+    );
+   
+    
+}
 
 const ButtonIcon = ({
     btn = false,    // Define se o botão do icone estará ativo ou não
@@ -46,15 +65,16 @@ const ButtonIcon = ({
     name,           // Nome do icone a ser inserido
     color,          // Cor que o icone terá
     size = 25,      // Tamanho do icone
-    margin = 0      // Margem que o icone terá
+    margin = 0,     // Margem que o icone terá
+    alignSelf = "flex-end"
 }) => {
 
     return (
         
-        <TouchableOpacity onPress={fun} disabled = {!btn} >
-            <SimpleIcon name={name} size={size} color={color} margin={margin}/>
+        <TouchableOpacity onPress={fun} disabled = {!btn} style={{alignSelf: alignSelf}}>
+            <SimpleIcon name={name} size={size} color={color} margin={margin} />
         </TouchableOpacity>        
     );
 }
 
-export {ButtonDefault, ButtonIcon, ButtonImage};
+export {ButtonDefault, ButtonIcon, ButtonImage, ButtonTextIcon};

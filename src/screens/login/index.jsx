@@ -8,11 +8,9 @@ import { ContainerTop, ContainerData } from "../../components/containers";
 import { ButtonDefault, ButtonImage } from "../../components/buttons";
 import { DonorContext } from "../../contexts/donor/context"
 import { Colors,Theme } from "../../constants/setting";
-import * as Validation from "../../utils/validation";
 import { InputIcon } from "../../components/inputs";
 import * as Types from "../../contexts/donor/types";
 import { Loading } from "../../components/loading";
-import * as Errors from "../../constants/erros";
 import { Error } from "../../components/error";
 import { Styles } from "./style"
 
@@ -20,7 +18,7 @@ import { Styles } from "./style"
 export function Login() {
 
   const {donorState, donorDispach} = useContext(DonorContext)
-  const [pass, setPass]            = useState("");
+  const [pass, setPass]            = useState("Dani@123");
   const [hide, setHide]            = useState(false);
   const navigation                 = useNavigation();
 
@@ -38,15 +36,15 @@ export function Login() {
   function validation(){
     let valid = false;
 
-    if(Validation.emailValidation(donorState.email)) {
-      setEmailErr(Errors.emailErr);
-      valid = true;
-    }
+    // if(Validation.emailValidation(donorState.email)) {
+    //   setEmailErr(Errors.emailErr);
+    //   valid = true;
+    // }
 
-    if(Validation.passValidation(pass)) {
-      setPassErr(Errors.passErr);
-      valid = true;
-    }
+    // if(Validation.passValidation(pass)) {
+    //   setPassErr(Errors.passErr);
+    //   valid = true;
+    // }
 
     return valid;
   }

@@ -1,7 +1,7 @@
 import {Statistic} from "./statistic";
 
 const Donor = {
-    email:      null,
+    email:      "d@d.com",
     name:       null,    
     phone:      null,
     photoUrl:   null,
