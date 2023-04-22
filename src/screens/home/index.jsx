@@ -1,4 +1,4 @@
-import { View, ScrollView, Button, Text, Center } from "react-native";
+import { View, ScrollView, Button, Text, Center, Icon } from "react-native";
 import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
 import { Height, FontBold, Width } from "../../constants/scales";
@@ -11,10 +11,13 @@ import { ButtonRoutes } from "../../routes/tab.routes";
 import { SizedBox } from 'sizedbox';
 import { BarChart } from "react-native-chart-kit";
 import { Card } from "../../components/images";
+import { DonorContext } from "../../contexts/donor/context";
+import { useContext } from "react";
 
 export function Home({ useNavigation }) {
   // const navigation = useNavigation();
   const profileDefault = require("../../../assets/images/profile.webp");
+  const {donorState, donorDispach} = useContext(DonorContext)
 
   const data = {
     labels: ['Vidro', 'Plástico', 'Metal'],
@@ -33,7 +36,7 @@ export function Home({ useNavigation }) {
         />
        <ContainerTopClean
          fun={()=>{}}
-         text="Bem vindo!"
+         text={"          Bem vind@,\n"+"          "+donorState.name}
          icon="information"
        />
        <SizedBox vertical={5} />
@@ -68,17 +71,26 @@ export function Home({ useNavigation }) {
         />
         </View>
        <SizedBox vertical={2} />
-        <View style={styles.container}>
-        <Button
-          title={"Cadastrar"}
-          color={Colors[Theme][2]}
-          textColor={Colors[Theme][7]}
-          textSize={Size28}
-          width={0.9}
-          // onPress={ () => navigation.navigate("")}
-        />
-        </View>      
-        {/* <Card/> */}
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ color: 'white', textAlign: 'right', padding: 20, }}>25 doações</Text>
+        </View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ButtonDefault
+              title={"Doação"}
+              color={Colors[Theme][2]}
+              textColor={Colors[Theme][7]}
+              textSize={Size20}
+              width={0.9}
+              // fun={login}
+            />
+            </View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+              <Text style={{ color: 'white', textAlign: 'left', padding: 20, }}>Histórico</Text>
+            </View>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', maxWidth: Width * 0.93, maxHeight: Height *0.8, backgroundColor: 'white', shadowColor: '#000', shadowOffset: { width: 2, height: 2 }, shadowOpacity: 0.3, shadowRadius: 3 , borderRadius: 10, padding: 20}}>
+              <Text>teste</Text>
+            </View> 
+            <SizedBox vertical={5} />
        </ScrollView>
   );
 }
