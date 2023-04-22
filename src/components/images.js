@@ -15,6 +15,19 @@ export const ImageCircle = ({
     );
 }
 
+export const ImageCircleHome = ({
+    size = Height*0.16,
+    img = "",
+    top = Height*0.093,
+    align = "flex-start"
+}) => {
+    return (
+        <View style={{...Styles.circleContainer, height:size, width:size, top: top, alignSelf: align}}>
+            <Image style={{...Styles.circleImage, height:size-8, width:size-8}} source={img} alt="Recicle++" />
+        </View>
+    );
+}
+
 const Styles = StyleSheet.create({
     circleContainer: {
         elevation: 0,
