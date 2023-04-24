@@ -68,9 +68,7 @@ const ButtonIcon = ({
     margin = 0,     // Margem que o icone terá
     alignSelf = "flex-end"
 }) => {
-
     return (
-        
         <TouchableOpacity onPress={fun} disabled = {!btn} style={{alignSelf: alignSelf}}>
             <SimpleIcon name={name} size={size} color={color} margin={margin} />
         </TouchableOpacity>        

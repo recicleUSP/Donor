@@ -34,7 +34,6 @@ export const ContainerTopClean = ({
         }
         <TextSimpleOpposite content={text}/>
       </View>
-
     </View>
   );
 };
