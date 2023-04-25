@@ -104,7 +104,7 @@ export function Home({ useNavigation }) {
         </View>
        <SizedBox vertical={2} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>25 doações</Text>
+            <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>25 Coletas Concluídas</Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ButtonDefault
@@ -119,9 +119,25 @@ export function Home({ useNavigation }) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', maxWidth: Width * 0.93, maxHeight: Height *0.8, backgroundColor: 'white', shadowColor: '#000', shadowOffset: { width: 2, height: 2 }, shadowOpacity: 0.3, shadowRadius: 3 , borderRadius: 10, padding: 20}}>
-              <Text>teste</Text>
-            </View> 
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ maxWidth: Width * 0.93, maxHeight: Height * 0.8, backgroundColor: 'white', shadowColor: '#000', shadowOffset: { width: 2, height: 2 }, shadowOpacity: 0.3, shadowRadius: 3, borderRadius: 10, padding: 20, alignSelf: 'center' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ marginRight: 30 }}>2KG Papel</Text>
+                <Text style={{ marginRight: 30 }}>1KG Plástico</Text>
+                <Text>2KG Vidro</Text>
+                
+              </View>
+              <SizedBox vertical={16} />
+                {/* <ImageCircleHome
+                  size={50}
+                  img={profileDefault}
+                /> */}
+                {/* <View style={{ flexDirection: 'row', alignItems: 'regth' }}>
+                <Text style={{ marginRight: 1 }}>Barcelona, 400, Paraíso</Text> */}
+                {/* </View> */}
+                <Text>Coleta Concluída</Text>
+              </View> 
+            </View>
             
             <SizedBox vertical={5} />
        </ScrollView>
