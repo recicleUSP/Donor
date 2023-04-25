@@ -175,7 +175,7 @@ export function Profile() {
             fun={confirmChanges}
             width={1}
             radius={0}
-            textColor={Colors[Theme][5]}
+            textColor={Colors[Theme][4]}
             padding={5}
             textSize={Size12}
           />}
