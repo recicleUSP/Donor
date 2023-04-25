@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, Text, View } from "react-native";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
 
 import { Size20, Size50, Size16, FontRegular } from "../../constants/scales";
@@ -30,6 +30,7 @@ export function Login() {
   const img = require("../../../assets/images/googleLogo.png");
 
   function openScreen(){
+    donorDispach({type:Types.SETSIGNOUT});
     navigation.navigate('Sign');
   }
 

@@ -1,19 +1,20 @@
+import { useContext, useState, useEffect } from "react";
 import { ScrollView, View } from "react-native";
-import { useContext, useState } from "react";
 import { SizedBox } from 'sizedbox';
 
 import { ContainerTop, ContainerData } from "../../components/containers";
 import { InputIcon,InputIconMask } from "../../components/inputs";
-import { ButtonDefault } from "../../components/buttons";
-import { Size20, Height, Width } from "../../constants/scales";
-import { Colors,Theme } from "../../constants/setting";
 import { DonorContext } from "../../contexts/donor/context";
-import { Error } from "../../components/error";
+import { ButtonDefault } from "../../components/buttons";
+import { Colors,Theme } from "../../constants/setting";
 import { Loading } from "../../components/loading";
+import { Size20 } from "../../constants/scales";
+import { Error } from "../../components/error";
 import { Styles } from "./style";
+
+import * as Validation from "../../utils/validation";
 import * as Types from "../../contexts/donor/types";
 import * as Errors from "../../constants/erros";
-import * as Validation from "../../utils/validation";
 import * as Mask from "../../utils/marksFormat";
 
 
@@ -25,11 +26,12 @@ export function Sign() {
   const [loandding, setLoadding]   = useState(false);
   const [error, setError]          = useState(false);
 
-
   const [nameErr, setNameErr]   = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [phoneErr, setPhoneErr] = useState("");
   const [passErr, setPassErr]   = useState("");
+
+  useEffect(()=>{},[])
 
   function validation(){
     let valid = false;

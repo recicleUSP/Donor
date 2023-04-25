@@ -7,7 +7,6 @@ import { Colors,Theme } from "../../constants/setting";
 import { Size20, Size28 } from "../../constants/scales";
 import React from "react";
 import { ImageCircle, ImageCircleHome } from "../../components/images";
-import { ButtonRoutes } from "../../routes/tab.routes";
 import { SizedBox } from 'sizedbox';
 import { BarChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';

@@ -41,10 +41,12 @@ function TabsRoutes() {
         tabBarActiveTintColor: Colors[Theme][2],
         tabBarInactiveTintColor: Colors[Theme][5],
         tabBarStyle: { 
+          borderTopColor: Colors[Theme][0],
+          backgroundColor: Colors[Theme][0],
+          opacity: 0.85,
           height: 55, 
           paddingBottom: 8,
           paddingTop: 5,
-          backgroundColor: Colors[Theme][0],
         },
       }}
     >

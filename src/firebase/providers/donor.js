@@ -1,14 +1,17 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, getRedirectResult, signInWithRedirect } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, getRedirectResult, signInWithRedirect, signOut } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
 import { Firestore, Auth } from "../config/connection";
 import { VerifyErroCode } from "../config/errors";
 import * as Types from "../../contexts/donor/types";
+
+import { Storage } from "../config/connection";
+import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+
 import P from 'prop-types';
 
 
-const Sign = async (data, dispach, callback) => { 
-  
+async function Sign (data, dispach, callback) { 
   createUserWithEmailAndPassword(Auth, data.email, data.pass)
   .then(async (userCredential) => {  
     const user = userCredential.user; 
@@ -40,6 +43,35 @@ Sign.propTypes = {
   dispach: P.func.isRequired
 }
 
+async function SignOut(callback){
+  signOut(Auth).then(()=>{
+    callback(true);
+  }).catch((err) => {
+    const error = {
+      title: "Falha ao Sair",
+      content: VerifyErroCode(err.code)
+    }
+    callback(false, error);
+  })
+}
+
+async function UpDate(data, dispach, callback) {
+  const id = data.id;
+  delete data.pass;
+  delete data.id;
+  delete data.logged;
+
+  setDoc(doc(Firestore, "donor", id), data).then(()=>{
+    dispach({type: Types.SETUPDATE, payload: data});  
+    callback(false, null);
+  }).catch((err)=>{
+    const error = {
+      title: "Falha ao atualizar dados",
+      content: VerifyErroCode(err.code)
+    }
+    callback(true, error);
+  });          
+}
 
 async function Login(data, dispach, callback) {
   signInWithEmailAndPassword(Auth, data.email, data.pass)
@@ -88,5 +120,29 @@ Login.propTypes = {
   dispach: P.func.isRequired
 }
 
-export {Sign, Login, LoginWithGoogle};
+async function UploadImage(data, callback){
+  const response = await fetch(data.uri);
+  const blob  = await response.blob();
+
+  uploadBytes(ref(Storage, 'images/'+data.id+'/'+'profile'), blob).then((snapshot)=>{
+    getDownloadURL(ref(Storage, snapshot.metadata.fullPath.toString())).then((url)=>{
+      callback(false, url);
+    }).catch((err) => {
+      const error = {
+        title: "Falha ao recuperar URL",
+        content: VerifyErroCode(err.code)
+      }
+      callback(true, error);
+    });
+    
+  }).catch((err) => {
+    const error = {
+      title: "Falha ao enviar a foto",
+      content: VerifyErroCode(err.code)
+    }
+    callback(true, error);
+  });
+}
+
+export {Sign, Login, LoginWithGoogle, SignOut, UpDate, UploadImage};
 

@@ -17,8 +17,9 @@ export const InputIcon = ({
     icon,                           // Nome de Icone a ser inserido
     btn = false,                    // Define se o icone será um botão (esconde ou exibe o caractere)
     errorMsg = null,                // Mensagem de erro caso haja
-    msg = "",
-    cb = null                       // Função de call-back
+    msg = "",                       // Mensagem adicional de sugestão
+    cb = null,                      // Função de call-back
+    enable = undefined              // Verifica se a edição está sendo permitida ou não
 }) => {
 
     const [showTxt, setShowTxt] = useState(btn);
@@ -32,8 +33,9 @@ export const InputIcon = ({
         <Text style={{...styles.textLabel, color: errorMsg ? Colors[Theme][8] : Colors[Theme][6]}}>{label}</Text>
         <View style={{...styles.viewContainer, borderColor: errorMsg ? Colors[Theme][8] : Colors[Theme][5] }}>
             <TextInput 
+                editable={enable}
                 style = {styles.inputStyle}
-                onChangeText= {onChange}
+                onChangeText={onChange}
                 type="custom"
                 onBlur={onBlur}
                 value={value}
@@ -72,8 +74,9 @@ export const InputIconMask = ({
     btn = false,                    // Define se o icone será um botão (esconde ou exibe o caractere)
     errorMsg = null,                // Mensagem de erro caso haja
     mask = undefined,               // Mascara a ser implementada no text
-    msg = "",
-    cb = null                       // Função de call-back
+    msg = "",                       // Mensagem de recomendação de escrita
+    cb = null,                      // Função de call-back
+    enable = undefined              // Verifica se a edição está sendo permitida ou não
 }) => {
 
     const [showTxt, setShowTxt] = useState(btn);
@@ -87,6 +90,7 @@ export const InputIconMask = ({
         <Text style={{...styles.textLabel, color: errorMsg ? Colors[Theme][8] : Colors[Theme][6]}}>{label}</Text>
         <View style={{...styles.viewContainer, borderColor: errorMsg ? Colors[Theme][8] : Colors[Theme][5] }}>
             <MaskedTextInput 
+                editable = {enable}
                 style = {styles.inputStyle}
                 onChangeText= {onChange}
                 type="custom"
