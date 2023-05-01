@@ -7,15 +7,17 @@ import { DonorContext } from "../../contexts/donor/context";
 import { ImageCircleIcon } from "../../components/images";
 import * as ImagePicker from 'expo-image-picker';
 import { Loading } from "../../components/loading";
+import { Error } from "../../components/error";
 import { ButtonIcon, ButtonDefault } from "../../components/buttons";
-import { Colors, Theme } from "../../constants/setting";
+import { Colors, Theme, ChangeTheme } from "../../constants/setting";
 import { Size110, Size12, Size28 } from "../../constants/scales";
 import { Styles } from "./style";
-import { Error } from "../../components/error";
 import * as Mask from "../../utils/marksFormat";
 import * as Types from "../../contexts/donor/types";
 import * as Errors from "../../constants/erros";
 import * as Validation from "../../utils/validation";
+import { RegisterAddress } from "../address";
+import { AddressCard } from "../address/components/card";
 
 
 
@@ -27,8 +29,11 @@ export function Profile() {
   const [phone, setPhone]          = useState("")
   const [nameErr, setNameErr]      = useState("");
   const [phoneErr, setPhoneErr]    = useState("");
+
   const [error, setError]          = useState(false);
   const [loandding, setLoandding]  = useState(false);
+  const [register, setResgister]   = useState(false);
+  const [index, setIndex]          = useState(-1);
 
   const basedImage                       = require("../../../assets/images/profile.webp");
   const [image, setImage]                = useState(basedImage);
@@ -115,12 +120,29 @@ export function Profile() {
     }
   }
 
-  function addAddress(){}
+  // Address Functions
+  function addAddress(idex = -1){
+    setIndex(idex);
+    setResgister((last) => !last);
+  }
+  function removeAddress(index){
+    let address = donorState.address;
+    address.splice(index, 1)
+    donorDispach({type: Types.UPDATEADDRESS, payload: address});
+    donorDispach({type: Types.UPDATE, data: {...donorState, 'address':address}, dispatch: donorDispach, cb:removeAddressCb});
+  }
+  function removeAddressCb(status, err){
+    if(status){setError(err)};  
+      setLoandding(false); 
+  }
 
   return (
     <View style={Styles.container}>
+
       {error && <Error error={error} closeFunc={()=>setError(false)}/>}
       {loandding && <Loading/>}
+      {register && <RegisterAddress data={donorState} dispach={donorDispach} closeFunc={() => setResgister(false)} idx={index}/>}
+
       <ScrollView>
         <ContainerTopClean
           icon="exit-to-app"
@@ -138,14 +160,24 @@ export function Profile() {
           bgColor={Colors[Theme][0]}
         />
 
-        <ButtonIcon 
-          btn = {true}
-          name={"square-edit-outline"}
-          color={Colors[Theme][5]}
-          margin={22}
-          size={Size28}
-          fun={editProfile}
-        />
+        {/* <View style={Styles.row}>
+          <ButtonIcon 
+            btn = {true}
+            name={ Theme == "dark" ? 'lightbulb-on-outline' : 'lightbulb-off-outline'}
+            color={Colors[Theme][5]}
+            margin={22}
+            size={Size28}
+            fun={ChangeTheme}
+          /> */}
+          <ButtonIcon 
+            btn = {true}
+            name={"square-edit-outline"}
+            color={Colors[Theme][5]}
+            margin={22}
+            size={Size28}
+            fun={editProfile}
+          />
+        {/* </View> */}
 
         <View style={{...Styles.containerEdit, opacity: editProf ? 1 : 0.6}}>
           <InputIcon
@@ -193,6 +225,14 @@ export function Profile() {
             size={Size28*1.3}
             fun={addAddress}
           />
+        </View>
+        <View style={Styles.containerEdit}>
+          {donorState.address.map((address, index) => {
+            return (
+              <AddressCard address={address} editFn={() => addAddress(index)} removeFn={() => removeAddress(index)}/>
+            );
+          })}
+
         </View>
 
       </ScrollView>

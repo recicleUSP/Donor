@@ -5,9 +5,9 @@ import { ButtonDefault } from "./buttons";
 import { TitleColorSmall } from "./titles";
 import { TextSimple } from "./texts";
 import { SizedBox } from "sizedbox"
+import { useState } from "react";
 
 export const Error = ({error, closeFunc}) => {
-
     return(
         <View style={Style.default}>
             <TouchableOpacity style={{...Style.default, ...Style.container}} onPress={closeFunc}></TouchableOpacity>

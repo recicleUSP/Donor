@@ -18,4 +18,9 @@ const passValidation = (value) => {
     return !re.test(value);
 }
 
-export {emailValidation, nameValidation, phoneValidation, passValidation};
+const cepValidation = (value) => {
+    const re = /^[0-9]{2}\s[0-9]{3}\-[0-9]{3}$/;
+    return !re.test(value);
+}
+
+export {emailValidation, nameValidation, phoneValidation, passValidation, cepValidation};

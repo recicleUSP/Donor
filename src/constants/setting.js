@@ -1,4 +1,5 @@
-export const Colors = {
+const Name  = "RECICLE++"; 
+const Colors = {
     "light" : [
         "#fafffd",      // (0) Fundo das Telas (Branco 1)
         "#ededeb",      // (1) Fundo das Telas (Branco 2)
@@ -25,6 +26,10 @@ export const Colors = {
     ]
 };
 
-export const Theme = "light";
-export const Name  = "RECICLE++"; 
+
+const Theme = "light"
+
+
+export {Name, Colors, Theme}
+
 

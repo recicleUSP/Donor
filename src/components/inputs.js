@@ -64,7 +64,7 @@ export const InputIcon = ({
 
 export const InputIconMask = ({
     onChange = null ,               // Função que salva o valor digitado na variável referênciada
-    onBlur = null,                  // Função que executa quando o objeto receber foco
+    onBlur = null,                  // Função que executa quando o objeto perder foco
     value = null,                   // Variavel de relação do input
     label,                          // Label do input
     keyboardType = "default",       // Estilo de Teclado

@@ -14,11 +14,17 @@ export const Styles = StyleSheet.create({
     },
     rowAdd: {
       flexDirection:"row",
-      padding: 20,
+      padding: 15,
       alignContent:"space-between",
       justifyContent: "space-between",
       marginTop: 10
     },
+    row: {
+      flexDirection:"row",
+      alignContent:"space-between",
+      justifyContent: "space-between",
+    },
+
     titleAddress:{
       color: Colors[Theme][4],
       fontSize: Size20*1.3,

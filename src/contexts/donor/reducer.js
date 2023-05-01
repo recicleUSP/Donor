@@ -29,6 +29,9 @@ export const reducer = (state, action) => {
             UploadImage({id: state.id, uri : action.uri}, action.cb);
             return{...state};
         }
+        case Types.UPDATEADDRESS: {
+            return{...state, address: action.payload};
+        }
 
 
         case Types.SETSIGNOUT: {

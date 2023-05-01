@@ -2,17 +2,17 @@ import { Text, StyleSheet } from  'react-native';
 import { FontBold, FontRegular, Size20, Size28 } from '../constants/scales';
 import { Colors, Theme } from '../constants/setting';
 
-export const TitleColor = ({content}) => {
+export const TitleColor = ({content, align = "flex-start"}) => {
     return (    
-        <Text style={{...Style.titleColor, ...Style.titleColorBig}}>
+        <Text style={{...Style.titleColor, ...Style.titleColorBig, alignSelf: align}}>
             {content}
         </Text>
     );
 }
 
-export const TitleColorSmall = ({content}) => {
+export const TitleColorSmall = ({content, align="flex-start"}) => {
     return (    
-        <Text style={{...Style.titleColor, ...Style.titleColorSmall}}>
+        <Text style={{...Style.titleColor, ...Style.titleColorSmall, alignSelf: align}}>
             {content}
         </Text>
     );

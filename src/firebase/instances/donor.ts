@@ -6,8 +6,8 @@ const Donor = {
     phone:      null,
     photoUrl:   null,
     prize:      0,
-    donations:  null,
-    address:    null,
+    donations:  [],
+    address:    [],
     statistic:  Statistic
 };
 
