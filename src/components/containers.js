@@ -15,6 +15,16 @@ export const ContainerTop = () => {
   );
 };
 
+export const ContainerTopRegister = () => {
+  return (
+    <View style={styles.containerTop2}>
+      <View style={styles.outerBar}>
+        <View style={styles.innerBar} />
+      </View>
+    </View>
+  );
+};
+
 export const ContainerTopClean = ({
   text     = "",
   icon     = "",
@@ -59,7 +69,14 @@ const styles = StyleSheet.create({
       textAlignVertical: "bottom",
       paddingTop: Height * 0.05
     },
-
+    containerTop2: {
+      height: Height * 0.1,
+      backgroundColor: Colors[Theme][2],
+      alignItems: "center",
+      verticalAlign: "bottom",
+      textAlignVertical: "bottom",
+      paddingTop: Height * 0.05
+    },
     containerTopClean: {
       height: Height*0.2,
       padding: 20,
@@ -113,5 +130,17 @@ const styles = StyleSheet.create({
       marginBottom: Size28,
       fontSize: Size28,
       ...FontBold
+  },  
+  outerBar: {
+    width: '70%',
+    height: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  innerBar: {
+    height: '100%',
+    width: '40%',
+    backgroundColor: Colors[Theme][2],
+    borderRadius: 5,
   },
 });

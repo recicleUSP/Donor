@@ -3,34 +3,37 @@ import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { reateNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { SimpleIcon } from '../components/icons'
 import { Colors,Theme } from '../constants/setting'
 import { Size28 } from '../constants/scales'
  
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+// const Stack = reateNativeStackNavigator();
 
 import { Home }   from "../screens/home"
 import { Advice } from "../screens/advice"
 import { Notice } from "../screens/notice"
 import { Profile } from "../screens/profile"
 import { Collection } from "../screens/collection"
-// import { createStackNavigator } from "@react-navigation/stack";
-// import { NavigationContainer } from "@react-navigation/native";
 
-function ButtonRoutes() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Collection" component={Collection} />
-      </Stack.Navigator>
-    </NavigationContainer> 
-  );
-}
+// function MyStack() {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator>
+//         <Stack.Screen
+//           name="Home"
+//           component={Home}
+//           options={{title: 'Welcome'}}
+//         />
+//         <Stack.Screen name="Collection" component={Collection} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
 
-export {ButtonRoutes};
+// export {MyStack};
 
 function TabsRoutes() {
   return (
@@ -56,6 +59,14 @@ function TabsRoutes() {
         options={{
           title: "Perfil",
           tabBarIcon: ({ color }) => (<SimpleIcon name="account" color={color} size={Size28} />),
+        }}
+      />
+      <Tab.Screen 
+        name="Collection" 
+        component={Collection} 
+        options={{
+          title: "Collection",
+          tabBarIcon: ({ color }) => (<SimpleIcon name="collection" color={color} size={Size28} />),
         }}
       />
       <Tab.Screen 

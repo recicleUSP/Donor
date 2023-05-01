@@ -14,10 +14,44 @@ import { Card } from "../../components/images";
 import { DonorContext } from "../../contexts/donor/context";
 import { useContext } from "react";
 import { PieChart } from 'react-native-chart-kit';
+import { ImageCircleIcon } from "../../components/images";
+import {useState, useEffect} from 'react';
 
 export function Home({ useNavigation }) {
-  const profileDefault = require("../../../assets/images/profile.webp");
   const {donorState, donorDispach} = useContext(DonorContext)
+  const basedImage                       = require("../../../assets/images/profile.webp");
+  const [image, setImage]                = useState(basedImage);
+
+  useEffect(()=>{
+    setImage(donorState.photoUrl 
+      ? {uri: donorState.photoUrl} 
+      : basedImage);
+  },[donorState.photoUrl]);
+  
+  // Image Profile functions
+  async function changeProfileImage(){
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [5, 5],
+      quality: 1,
+    });  
+
+    if (!result.canceled) {
+      const source = {uri: result.assets[0].uri}
+      setImage(source);
+      setLoandding(true);
+      donorDispach({type: Types.LOADIMAGE, uri: source.uri, cb: changeImageCB})
+    }
+  }
+  function changeImageCB (state, error) {
+    if(state){
+      setError(error);
+    }else {
+      donorDispach({type:Types.SETIMAGE, payload: error})
+      donorDispach({type: Types.UPDATE, data: {...donorState, photoUrl: error}, dispatch: donorDispach, cb:updateCB});
+    }
+  }
 
   const data2 = [
     {
@@ -72,9 +106,15 @@ export function Home({ useNavigation }) {
 
   return (
     <ScrollView>
-        <ImageCircleHome
+        <ImageCircleIcon
           size={130}
-          img={profileDefault}
+          sizeIcon={0}
+          // icon={"camera"}
+          align={"flex-start"}
+          img={image}
+          // fun={changeProfileImage}
+          color={Colors[Theme][5]}
+          bgColor={Colors[Theme][0]}
         />
        <ContainerTopClean
          fun={()=>{}}
