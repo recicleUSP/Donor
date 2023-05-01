@@ -171,7 +171,6 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
                         <InputIcon 
                             onChange = {(value) => {setState(value); setStateErr('')}}
                             value = {state}
-                            enable={false}
                             placeholder = {"Nome do estado"}
                             label = "Estado *"
                             flexS={0.375}

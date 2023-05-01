@@ -229,7 +229,7 @@ export function Profile() {
         <View style={Styles.containerEdit}>
           {donorState.address.map((address, index) => {
             return (
-              <AddressCard address={address} editFn={() => addAddress(index)} removeFn={() => removeAddress(index)}/>
+              <AddressCard address={address} editFn={() => addAddress(index)} removeFn={() => removeAddress(index)} key={index}/>
             );
           })}
 

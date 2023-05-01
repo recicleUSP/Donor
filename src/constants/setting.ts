@@ -2,7 +2,7 @@ const Name  = "RECICLE++";
 const Colors = {
     "light" : [
         "#fafffd",      // (0) Fundo das Telas (Branco 1)
-        "#ededeb",      // (1) Fundo das Telas (Branco 2)
+        "#fffdfc",      // (1) Fundo das Telas (Branco 2)
         "#10b981",      // (2) Primária (Verde da barra)
         "#a7f3d0",      // (3) Secundária (Verde mais claro)
         "#1A1919",      // (4) Texto mais forte (principal)

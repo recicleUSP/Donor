@@ -48,6 +48,16 @@ export const ContainerTopClean = ({
   );
 };
 
+export const ContainerTopTitle = ({title}) => {
+  return (
+    <View style={{...styles.containerTopClean, alignItems:"center", justifyContent:"center"}}>
+     <Text style={{...styles.textTop, fontSize: Size28*1.3}}>
+        {title}
+     </Text>
+    </View>
+  );
+};
+
 export const ContainerData = ({
     children,           // Componente filho do container
     title               // titulo da rotina do container
