@@ -1,6 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { Text, View, Button } from "react-native";
 import { styles } from "./style";
+import { ScrollView } from "react-native-gesture-handler";
+import { ContainerTopTitle } from "../../components/containers";
 
 
 export function Notice() {
@@ -12,9 +14,9 @@ export function Notice() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Notice</Text>
-      </View>
+      <ScrollView>
+        <ContainerTopTitle title={"Notificações"}/>
+      </ScrollView>
     </View>
   );
 }

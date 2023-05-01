@@ -25,7 +25,7 @@ export function Advice() {
 
   return (
     <ScrollView>
-      <ContainerTopTitle title={"Avisos"} />
+      <ContainerTopTitle title={"Cuidados"} />
 
       <View style={styles.main}>
         <Text style={{...styles.title}}>{Advices.title}</Text>
