@@ -9,8 +9,26 @@ import { ButtonDefault} from "../../components/buttons";
 import { InputIconInRegister, InputIcon } from "../../components/inputs";
 import { useState } from "react";
 import { SizedBox } from 'sizedbox';
+// import {RecyclingAdd} from '../RecyclingAdd';
+// import { Firestore, Auth } from "../config/connection";
+// import firebase from 'firebase';
+// import 'firebase/firestore';
 
 export function Collection() {
+  // async function RecyclingAdd() {
+  //   const db = firebase.firestore();
+  //   db.collection('teste').add({
+  //       name: 'John Doe',
+  //       age: 30,
+  //       email: 'johndoe@example.com'
+  //   })
+  //   .then((docRef) => {
+  //       console.log('Document written with ID: ', docRef.id);
+  //   })
+  //   .catch((error) => {
+  //       console.error('Error adding document: ', error);
+  //   });
+  // }
   //escolhas
   const [text, setText] = useState('');
   const [options, setOptions] = useState([
@@ -137,8 +155,9 @@ export function Collection() {
         <View style={styles.divider} />
         <View style={styles.container}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text style={styles.text}>Casa da Avó</Text>
+          <Text style={styles.text}>Endereço:</Text>
           </View>
+          <Text style={styles.text}></Text>
         </View>
         <View style={styles.divider} />
         <SizedBox vertical={10} />
@@ -147,12 +166,12 @@ export function Collection() {
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ButtonDefault
-              title={"Próximo"}
+              title={"Cadastrar"}
               color={Colors[Theme][2]}
               textColor={Colors[Theme][7]}
               textSize={Size20}
               width={0.9}
-              // fun={login}
+              // fun={RecyclingAdd}
               // onPress={() => navigation.navigate('ButtonRoutes', { screen: 'Collection' })}
             />
             </View>

@@ -1,39 +1,17 @@
 import * as React from "react";
-// import { NavigationContainer } from '@react-navigation/bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { reateNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { SimpleIcon } from '../components/icons'
 import { Colors,Theme } from '../constants/setting'
 import { Size28 } from '../constants/scales'
  
 const Tab = createBottomTabNavigator();
-// const Stack = reateNativeStackNavigator();
 
 import { Home }   from "../screens/home"
 import { Advice } from "../screens/advice"
 import { Notice } from "../screens/notice"
 import { Profile } from "../screens/profile"
 import { Collection } from "../screens/collection"
-
-// function MyStack() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen
-//           name="Home"
-//           component={Home}
-//           options={{title: 'Welcome'}}
-//         />
-//         <Stack.Screen name="Collection" component={Collection} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-// export {MyStack};
 
 function TabsRoutes() {
   return (

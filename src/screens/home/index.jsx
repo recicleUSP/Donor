@@ -1,23 +1,18 @@
 import { View, ScrollView, Button, Text, Center, Icon } from "react-native";
 import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
-import { Height, FontBold, Width } from "../../constants/scales";
 import { ButtonDefault, ButtonImage } from "../../components/buttons";
 import { Colors,Theme } from "../../constants/setting";
 import { Size20, Size28 } from "../../constants/scales";
 import React from "react";
-import { ImageCircle, ImageCircleHome } from "../../components/images";
 import { SizedBox } from 'sizedbox';
-import { BarChart } from 'react-native-chart-kit';
-import { Dimensions } from 'react-native';
-import { Card } from "../../components/images";
 import { DonorContext } from "../../contexts/donor/context";
 import { useContext } from "react";
 import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
 import {useState, useEffect} from 'react';
 
-export function Home({ useNavigation }) {
+export function Home({}) {
   const {donorState, donorDispach} = useContext(DonorContext)
   const basedImage                       = require("../../../assets/images/profile.webp");
   const [image, setImage]                = useState(basedImage);
@@ -56,28 +51,21 @@ export function Home({ useNavigation }) {
   const data2 = [
     {
       name: 'Metal',
-      population: 21500000,
+      population: 10,
       color: '#297AB1',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
-      name: 'Orgânico',
-      population: 2800000,
-      color: '#63BFA3',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
       name: 'Madeira',
-      population: 527612,
+      population: 10,
       color: '#F5A623',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Eletrônico',
-      population: 8538000,
+      population: 10,
       color: '#D33F49',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
@@ -143,8 +131,14 @@ export function Home({ useNavigation }) {
         </View>
        <SizedBox vertical={2} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>25 Coletas Concluídas</Text>
+            <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>0 Coletas Concluídas</Text>
         </View>
+        {/* <Button
+          title="Go to Jane's profile"
+          onPress={() =>
+            navigation.navigate('Profile', {name: 'Jane'})
+          }
+        /> */}
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ButtonDefault
               title={"Doação"}
@@ -158,13 +152,11 @@ export function Home({ useNavigation }) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <View style={{ maxWidth: Width * 0.93, maxHeight: Height * 0.8, backgroundColor: 'white', shadowColor: '#000', shadowOffset: { width: 2, height: 2 }, shadowOpacity: 0.3, shadowRadius: 3, borderRadius: 10, padding: 20, alignSelf: 'center' }}>
+            <View style={styles.card}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ marginRight: 30 }}>2KG Papel</Text>
-                <Text style={{ marginRight: 30 }}>1KG Plástico</Text>
-                <Text>2KG Vidro</Text>
-                
+                <Text style={{ marginRight: 30 }}>0KG Papel</Text>
+                <Text style={{ marginRight: 30 }}>0KG Plástico</Text>
+                <Text>0KG Vidro</Text>
               </View>
               <SizedBox vertical={16} />
                 {/* <ImageCircleHome
@@ -175,9 +167,7 @@ export function Home({ useNavigation }) {
                 <Text style={{ marginRight: 1 }}>Barcelona, 400, Paraíso</Text> */}
                 {/* </View> */}
                 <Text>Coleta Concluída</Text>
-              </View> 
             </View>
-            
             <SizedBox vertical={5} />
        </ScrollView>
   );

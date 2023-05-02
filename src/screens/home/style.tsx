@@ -1,6 +1,23 @@
 import { StyleSheet } from "react-native";
+import { Width, Height, Size20, FontBold, FontRegular } from "../../constants/scales";
+import { Colors, Theme } from "../../constants/setting";
 
 export const styles = StyleSheet.create({
+    card:{  
+      alignSelf:"center",
+      alignContent: "center",
+      alignItems: "center",
+      marginTop:17,
+      elevation: 3,
+      zIndex: 1,
+      justifyContent: "center",
+      width: Width * 0.85,
+      borderRadius: 10,
+      padding: 10,
+      backgroundColor: Colors[Theme][1],
+      //alignItems:"center",
+      marginBottom: 15
+    },
     container: {
       flex: 1,
       alignItems: "center",
