@@ -1,4 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+import { Width, Height, Size20, FontBold, FontRegular } from "../../constants/scales";
+import { Colors, Theme } from "../../constants/setting";
+
+const { width } = Dimensions.get('window');
+const buttonWidth = width * 0.8;
 
 
 export const styles = StyleSheet.create({
@@ -105,5 +110,18 @@ export const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  button: {
+    backgroundColor: Colors[Theme][2],
+    padding: 16,
+    borderRadius: 8,
+    width: buttonWidth,
+    alignSelf: 'center',
+  },
+  text2: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

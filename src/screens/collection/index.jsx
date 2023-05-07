@@ -4,33 +4,16 @@ import { styles } from "./style";
 import { ScrollView } from "react-native-gesture-handler";
 import { ContainerTop, ContainerTopRegister } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
-import { Size20 } from "../../constants/scales";
-import { ButtonDefault} from "../../components/buttons";
-import { InputIconInRegister, InputIcon } from "../../components/inputs";
 import { useState } from "react";
 import { SizedBox } from 'sizedbox';
-// import {RecyclingAdd} from '../RecyclingAdd';
-// import { Firestore, Auth } from "../config/connection";
-// import firebase from 'firebase';
-// import 'firebase/firestore';
+// import { addNewDocument } from "../../firebase/providers/recicle";
+import { setDoc, getDoc, collection , addDoc, getFirestore, firebaseApp } from "firebase/firestore";
 
-export function Collection() {
-  // async function RecyclingAdd() {
-  //   const db = firebase.firestore();
-  //   db.collection('teste').add({
-  //       name: 'John Doe',
-  //       age: 30,
-  //       email: 'johndoe@example.com'
-  //   })
-  //   .then((docRef) => {
-  //       console.log('Document written with ID: ', docRef.id);
-  //   })
-  //   .catch((error) => {
-  //       console.error('Error adding document: ', error);
-  //   });
-  // }
-  //escolhas
-  const [text, setText] = useState('');
+export function Collection({}) {
+  const navigation = useNavigation();
+  const firestore = getFirestore(firebaseApp);
+  const [tipo, caixas, coleta, endereco, observacao, peso, sacolas] = useState(null);
+  
   const [options, setOptions] = useState([
     { label: 'Option 1', value: 'option1' },
     { label: 'Option 2', value: 'option2' },
@@ -38,28 +21,32 @@ export function Collection() {
   ]);
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleChangeText = (inputText) => {
-    setText(inputText);
-    setShowOptions(true);
+  async function addNewDocument() {
+      try {
+        const newDocRef = await addDoc(collection(firestore, 'recycling'), {
+          tipo: 'Plástico',
+          caixas: 2,
+          coleta: 'Semanal',
+          endereco: 'Rua da Reciclagem, 123',
+          observacao: 'Deixar na portaria',
+          peso: 5.2,
+          sacolas: 1,
+          // tipo: tipo,
+          // caixas: caixas,
+          // coleta: coleta,
+          // endereco: endereco,
+          // observacao: observacao,
+          // peso: peso,
+          // sacolas: sacolas,
+        });
+        console.log('Documento adicionado com ID:', newDocRef.id);
+        navigation.navigate('Home')
+      } catch (error) {
+        console.error('Erro ao adicionar documento:', error);
+      }
   }
 
-  const handleSelectOption = (optionValue) => {
-    setText(optionValue);
-    setShowOptions(false);
-  }
-
-  const renderOption = ({ item }) => (
-    <TouchableOpacity onPress={() => handleSelectOption(item.value)} style={styles.option}>
-      <Text>{item.label}</Text>
-    </TouchableOpacity>
-  );
-  //textos
-  const [textInputTipo,textInputSacola,textInputCaixas,textInputPeso, textInputObs, setTextInputObs] = useState('');
-  const handleChangeTextInput1 = (inputText) => {
-    setText(inputText);
-  }
   return (
-    // <View style={styles.container}>
       <ScrollView>
         <ContainerTop/>     
         <ContainerTopRegister/>
@@ -68,23 +55,15 @@ export function Collection() {
         </View>
         <TextInput
           style={styles.inputOptions}
-          value={text}
-          onChangeText={handleChangeText}
+          value={endereco}
+          onChangeText={endereco}
           placeholder="Endereço"
           placeholderTextColor="#ccc"
         />
-        {showOptions && (
-          <FlatList
-            data={options}
-            renderItem={renderOption}
-            keyExtractor={(item) => item.value}
-            style={styles.options}
-          />
-        )}
         <TextInput
           style={styles.input}
-          value={textInputTipo}
-          onChangeText={handleChangeText}
+          value={tipo}
+          onChangeText={tipo}
           placeholder="Tipo"
           placeholderTextColor="#ccc"
         />
@@ -92,31 +71,31 @@ export function Collection() {
         <SizedBox horizontal={10} />
         <TextInput
           style={styles.inputRow}
-          value={textInputSacola}
-          onChangeText={handleChangeTextInput1}
+          value={sacolas}
+          onChangeText={sacolas}
           placeholder="Sacolas"
           placeholderTextColor="#ccc"
         />
         <TextInput
           style={styles.inputRow}
-          value={textInputCaixas}
-          onChangeText={handleChangeTextInput1}
+          value={caixas}
+          onChangeText={caixas}
           placeholder="Caixas"
           placeholderTextColor="#ccc"
         />
-                  <SizedBox horizontal={10} />
+        <SizedBox horizontal={10} />
         </View>
         <TextInput
           style={styles.input}
-          value={textInputPeso}
-          onChangeText={handleChangeTextInput1}
+          value={peso}
+          onChangeText={peso}
           placeholder="Peso estimado"
           placeholderTextColor="#ccc"
         />        
         <TextInput
           style={styles.inputBig}
-          value={textInputObs}
-          onChangeText={handleChangeTextInput1}
+          value={observacao}
+          onChangeText={observacao}
           placeholder="Observações"
           placeholderTextColor="#ccc"
         />
@@ -125,8 +104,8 @@ export function Collection() {
         </View>
         <TextInput
           style={styles.inputBig}
-          value={textInputObs}
-          onChangeText={handleChangeTextInput1}
+          value={coleta}
+          onChangeText={coleta}
           placeholder="Horários"
           placeholderTextColor="#ccc"
         />
@@ -135,21 +114,21 @@ export function Collection() {
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <SizedBox horizontal={10} />
-        <TextInput
+        {/* <TextInput
           style={styles.inputRow}
           value={textInputSacola}
-          onChangeText={handleChangeTextInput1}
+          onChangeText={}
           placeholder="Material"
           placeholderTextColor="#ccc"
-        />
-        <TextInput
+        /> */}
+        {/* <TextInput
           style={styles.inputRow}
           value={textInputCaixas}
           onChangeText={handleChangeTextInput1}
           placeholder="Quantidade"
           placeholderTextColor="#ccc"
-        />
-                  <SizedBox horizontal={10} />
+        /> */}
+        <SizedBox horizontal={10} />
         </View>
         <SizedBox vertical={10} />
         <View style={styles.divider} />
@@ -165,18 +144,13 @@ export function Collection() {
               <Text style={{ color: 'black', textAlign: 'left', padding: 20, fontSize: 15 }}>Coletas: </Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ButtonDefault
-              title={"Cadastrar"}
-              color={Colors[Theme][2]}
-              textColor={Colors[Theme][7]}
-              textSize={Size20}
-              width={0.9}
-              // fun={RecyclingAdd}
-              // onPress={() => navigation.navigate('ButtonRoutes', { screen: 'Collection' })}
-            />
+        <TouchableOpacity style={styles.button} onPress={
+          ()=>addNewDocument()
+          }>
+          <Text style={styles.text }>Cadastrar</Text>
+        </TouchableOpacity>
             </View>
             <SizedBox vertical={30} />
       </ScrollView>
-    // </View>
   );
 }

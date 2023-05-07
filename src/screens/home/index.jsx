@@ -12,7 +12,7 @@ import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
 import {useState, useEffect} from 'react';
 import { useNavigation } from '@react-navigation/native';
-// import { Collection } from "../collection";
+import { Firestore } from "../../firebase/config/connection";
 
 export function Home({}) {
   const navigation = useNavigation();
@@ -26,7 +26,6 @@ export function Home({}) {
       : basedImage);
   },[donorState.photoUrl]);
   
-  // Image Profile functions
   async function changeProfileImage(){
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -84,16 +83,16 @@ export function Home({}) {
     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   };
 
-
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-      },
-    ],
-  };
+  // const [task, setTask] = useState([])
+  // useEffect(()=>{
+  //   Firestore.collection("recycling").onSnapshot((query)=>{
+  //     const list=[]
+  //     query.forEach(()=>{
+  //       list.push({...doc.data(), id: doc.id})
+  //     })
+  //     setTask(list)
+  //   })
+  // }, [])
 
   return (
     <ScrollView>
