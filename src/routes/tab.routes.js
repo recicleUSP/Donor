@@ -1,20 +1,22 @@
 import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { SimpleIcon } from '../components/icons'
 import { Colors,Theme } from '../constants/setting'
 import { Size28 } from '../constants/scales'
- 
+
 const Tab = createBottomTabNavigator();
 
 import { Home }   from "../screens/home"
 import { Advice } from "../screens/advice"
 import { Notice } from "../screens/notice"
 import { Profile } from "../screens/profile"
-import { Collection } from "../screens/collection"
+import { StackCollection } from "./stack.routes";
 
 function TabsRoutes() {
   return (
+
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
@@ -39,14 +41,10 @@ function TabsRoutes() {
           tabBarIcon: ({ color }) => (<SimpleIcon name="account" color={color} size={Size28} />),
         }}
       />
-      <Tab.Screen 
+      {/* <Tab.Screen 
         name="Collection" 
         component={Collection} 
-        options={{
-          title: "Collection",
-          tabBarIcon: ({ color }) => (<SimpleIcon name="collection" color={color} size={Size28} />),
-        }}
-      />
+      /> */}
       <Tab.Screen 
         name="Advice" 
         component={Advice} 
@@ -65,7 +63,7 @@ function TabsRoutes() {
       />
       <Tab.Screen 
         name="Home" 
-        component={Home} 
+        component={StackCollection} 
         options={{
           title: "Início",
           tabBarIcon: ({ color }) => ( <SimpleIcon name="recycle" color={color}  size={Size28} />),
@@ -77,3 +75,4 @@ function TabsRoutes() {
 
 
 export {TabsRoutes};
+

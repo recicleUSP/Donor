@@ -25,6 +25,27 @@ const ButtonDefault = ({
     );
 }
 
+const ButtonDefaultData = ({
+    title,                              // Titulo do button
+    textSize = Size28,                  // Tamanho do Texto
+    width = 0.8,                        // Largura do button 0-1
+    color = Colors[Theme][2],           // Cor principal do button
+    textColor = Colors[Theme][1],       // Cor do Text
+    padding = 12,                       // Padding padrão entre os textos 
+    opacity = 1,                        // Define a opacidade do button
+    radius = 0,                         // Circuferência do button
+    fun = null                          // Função que será executada a cada click
+}) => {
+    return (
+        <TouchableOpacity onPress={()=>navigation.navigate('Collection')}>
+            <View  style={{backgroundColor: color, opacity: opacity, width: Width*width, alignItems:"center", padding: padding, borderRadius: radius}}>
+                <Text style={{color: textColor, fontSize: textSize, ...FontSemibold}}>{title}</Text>
+            </View>
+        </TouchableOpacity>
+        
+    );
+}
+
 const ButtonImage = ({
     imageSrc,            // SRC da imagem capturado pelo required
     height = 45,         // Altura da imagem

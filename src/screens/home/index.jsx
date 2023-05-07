@@ -1,7 +1,7 @@
-import { View, ScrollView, Button, Text, Center, Icon } from "react-native";
+import { View, ScrollView, Button, Text, Center, Icon, TouchableOpacity } from "react-native";
 import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
-import { ButtonDefault, ButtonImage } from "../../components/buttons";
+import { ButtonDefaultData} from "../../components/buttons";
 import { Colors,Theme } from "../../constants/setting";
 import { Size20, Size28 } from "../../constants/scales";
 import React from "react";
@@ -11,8 +11,11 @@ import { useContext } from "react";
 import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
 import {useState, useEffect} from 'react';
+import { useNavigation } from '@react-navigation/native';
+// import { Collection } from "../collection";
 
 export function Home({}) {
+  const navigation = useNavigation();
   const {donorState, donorDispach} = useContext(DonorContext)
   const basedImage                       = require("../../../assets/images/profile.webp");
   const [image, setImage]                = useState(basedImage);
@@ -133,21 +136,10 @@ export function Home({}) {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>0 Coletas Concluídas</Text>
         </View>
-        {/* <Button
-          title="Go to Jane's profile"
-          onPress={() =>
-            navigation.navigate('Profile', {name: 'Jane'})
-          }
-        /> */}
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ButtonDefault
-              title={"Doação"}
-              color={Colors[Theme][2]}
-              textColor={Colors[Theme][7]}
-              textSize={Size20}
-              width={0.9}
-              // fun={login}
-            />
+        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Collection')}>
+          <Text style={styles.text }>Cadastrar</Text>
+        </TouchableOpacity>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>

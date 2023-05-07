@@ -7,21 +7,17 @@ const Stack = createNativeStackNavigator();
 
 function StackCollection() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen 
           name="Home" 
-        //   component={Login} 
-        //   options={{
-        //     headerShown: false
-        //   }}
+          component={Home} 
         />
         <Stack.Screen 
           name="Collection" 
-        //   component={Sign} 
-        //   options={{
-        //     headerShown: false
-        //   }}
+          component={Collection} 
         />
     </Stack.Navigator>
   );
 }
+
+export {StackCollection};

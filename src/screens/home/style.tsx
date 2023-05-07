@@ -1,6 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { Width, Height, Size20, FontBold, FontRegular } from "../../constants/scales";
 import { Colors, Theme } from "../../constants/setting";
+
+const { width } = Dimensions.get('window');
+const buttonWidth = width * 0.8;
 
 export const styles = StyleSheet.create({
     card:{  
@@ -36,5 +39,18 @@ export const styles = StyleSheet.create({
     subtitle: {
       fontSize: 36,
       color: "#38434D",
+    },
+    button: {
+      backgroundColor: Colors[Theme][2],
+      padding: 16,
+      borderRadius: 8,
+      width: buttonWidth,
+      alignSelf: 'center',
+    },
+    text: {
+      color: 'white',
+      textAlign: 'center',
+      fontSize: 16,
+      fontWeight: 'bold',
     },
   });

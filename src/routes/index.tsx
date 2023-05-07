@@ -5,7 +5,7 @@ import { Colors, Theme } from "../constants/setting";
 import { DonorContext } from "../contexts/donor/context";
 import { TabsRoutes } from "./tab.routes";
 import { LogRoutes } from "./log.routes";
-// import { MyStack } from "./stack.routes";
+import React from "react";
  
 function Routes(){
     const MyTheme = {
@@ -22,8 +22,6 @@ function Routes(){
     return (
         <NavigationContainer theme={MyTheme}>
             {logged ? <TabsRoutes/> : <LogRoutes/>}
-            {/* {logged ? <MyStack/> : <LogRoutes/>} */}
-            {/* <MainNavigation /> */}
         </NavigationContainer>
     )
 }
