@@ -12,13 +12,23 @@ import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
 import {useState, useEffect} from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Firestore } from "../../firebase/config/connection";
+import { setDoc, getDoc, collection, onSnapshot , addDoc, getFirestore, firebaseApp, Firestore } from "firebase/firestore";
 
 export function Home({}) {
   const navigation = useNavigation();
+  const firestore = getFirestore(firebaseApp);
   const {donorState, donorDispach} = useContext(DonorContext)
   const basedImage                       = require("../../../assets/images/profile.webp");
   const [image, setImage]                = useState(basedImage);
+  const [tarefas, setTarefas]            = useState([]);
+  const [metal, setMetal]                = useState([]);
+  const [madeira, setMadeira]            = useState([]);
+  const [eletronico, setEletronico]      = useState([]);
+  const quantidadeTarefas = tarefas.length;
+  const tipos = tarefas.map((tarefa) => tarefa.tipo);
+  const quantidadeTipoA = tipos.filter((tipo) => tipo === 'Plástico').length;
+  const quantidadeTipoB = tipos.filter((tipo) => tipo === 'Metal').length;
+  const quantidadeTipoC = tipos.filter((tipo) => tipo === 'Eletrônico').length;
 
   useEffect(()=>{
     setImage(donorState.photoUrl 
@@ -53,21 +63,21 @@ export function Home({}) {
   const data2 = [
     {
       name: 'Metal',
-      population: 10,
+      population: quantidadeTipoB,
       color: '#297AB1',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
-      name: 'Madeira',
-      population: 10,
+      name: 'Plástico',
+      population: quantidadeTipoA,
       color: '#F5A623',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Eletrônico',
-      population: 10,
+      population: quantidadeTipoC,
       color: '#D33F49',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
@@ -83,16 +93,32 @@ export function Home({}) {
     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   };
 
-  // const [task, setTask] = useState([])
-  // useEffect(()=>{
-  //   Firestore.collection("recycling").onSnapshot((query)=>{
-  //     const list=[]
-  //     query.forEach(()=>{
-  //       list.push({...doc.data(), id: doc.id})
-  //     })
-  //     setTask(list)
-  //   })
-  // }, [])
+  useEffect(() => {
+    // Cria um listener para a coleção 'recycling' no Firestore
+    const unsubscribe = onSnapshot(collection(firestore, 'recycling'), (querySnapshot) => {
+      // Cria um array para armazenar os dados da coleção
+      const tarefas = [];
+      // Itera sobre cada documento da coleção
+      querySnapshot.forEach((doc) => {
+        // Extrai os dados do documento e adiciona ao array de tarefas
+        const data = doc.data();
+        tarefas.push({
+          id: doc.id,
+          tipo: data.tipo,
+          caixas: data.caixas,
+          coleta: data.coleta,
+          endereco: data.endereco,
+          observacao: data.observacao,
+          peso: data.data,
+          sacolas: data.sacolas,
+        });
+      });
+      // Atualiza o estado com as tarefas obtidas do Firestore
+      setTarefas(tarefas);
+    });
+    // Retorna uma função para cancelar o listener quando o componente for desmontado
+    return () => unsubscribe();
+  }, []);  
 
   return (
     <ScrollView>
@@ -114,7 +140,9 @@ export function Home({}) {
        <SizedBox vertical={5} />
        {/* <SizedBox ={10} /> */}
        <View style={styles.main}>
+            
             <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>Avaliação</Text>
+            
         </View>
        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <View>
@@ -133,7 +161,7 @@ export function Home({}) {
         </View>
        <SizedBox vertical={2} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>0 Coletas Concluídas</Text>
+            <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>{quantidadeTarefas+" Coletas Concluídas"}</Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Collection')}>
@@ -143,22 +171,24 @@ export function Home({}) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
-            <View style={styles.card}>
+            <View>
+          {tarefas ? (
+            tarefas.map((tarefa) => (
+              <View key={tarefa.id} style={styles.card}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ marginRight: 30 }}>0KG Papel</Text>
-                <Text style={{ marginRight: 30 }}>0KG Plástico</Text>
-                <Text>0KG Vidro</Text>
+                <Text style={{ marginRight: 30 }}>{"caixas: "+tarefa.caixas}</Text>
+                <Text style={{ marginRight: 30 }}>{"sacolas: "+tarefa.sacolas}</Text>
+                <Text>{"peso: "+tarefa.peso}</Text>
               </View>
               <SizedBox vertical={16} />
-                {/* <ImageCircleHome
-                  size={50}
-                  img={profileDefault}
-                /> */}
-                {/* <View style={{ flexDirection: 'row', alignItems: 'regth' }}>
-                <Text style={{ marginRight: 1 }}>Barcelona, 400, Paraíso</Text> */}
-                {/* </View> */}
+                <Text>{tarefa.tipo}</Text>
                 <Text>Coleta Concluída</Text>
             </View>
+            ))
+          ) : (
+            <Text>Carregando...</Text>
+          )}
+        </View>
             <SizedBox vertical={5} />
        </ScrollView>
   );

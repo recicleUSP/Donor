@@ -12,32 +12,31 @@ import { setDoc, getDoc, collection , addDoc, getFirestore, firebaseApp } from "
 export function Collection({}) {
   const navigation = useNavigation();
   const firestore = getFirestore(firebaseApp);
-  const [tipo, caixas, coleta, endereco, observacao, peso, sacolas] = useState(null);
+  const [tipo, setTipo] = useState();
+  const [caixas, setCaixas] = useState();
+  const [coleta, setColeta] = useState();
+  const [endereco, setEndereco] = useState();
+  const [observacao, setObservacao] = useState();
+  const [peso, setPeso] = useState();
+  const [sacolas, setSacolas] = useState();
   
   const [options, setOptions] = useState([
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
-    { label: 'Option 3', value: 'option3' },
+    { label: 'Option 1', value: 'Plástico' },
+    { label: 'Option 2', value: 'Metal' },
+    { label: 'Option 3', value: 'Eletrônico' },
   ]);
   const [showOptions, setShowOptions] = useState(false);
 
-  async function addNewDocument() {
+  async function addNewDocument(tipo, caixas, coleta, endereco, observacao, peso, sacolas) {
       try {
         const newDocRef = await addDoc(collection(firestore, 'recycling'), {
-          tipo: 'Plástico',
-          caixas: 2,
-          coleta: 'Semanal',
-          endereco: 'Rua da Reciclagem, 123',
-          observacao: 'Deixar na portaria',
-          peso: 5.2,
-          sacolas: 1,
-          // tipo: tipo,
-          // caixas: caixas,
-          // coleta: coleta,
-          // endereco: endereco,
-          // observacao: observacao,
-          // peso: peso,
-          // sacolas: sacolas,
+          tipo: tipo,
+          caixas: caixas,
+          coleta: coleta,
+          endereco: endereco,
+          observacao: observacao,
+          peso: peso,
+          sacolas: sacolas,
         });
         console.log('Documento adicionado com ID:', newDocRef.id);
         navigation.navigate('Home')
@@ -56,14 +55,14 @@ export function Collection({}) {
         <TextInput
           style={styles.inputOptions}
           value={endereco}
-          onChangeText={endereco}
+          onChangeText={setEndereco}
           placeholder="Endereço"
           placeholderTextColor="#ccc"
         />
         <TextInput
           style={styles.input}
           value={tipo}
-          onChangeText={tipo}
+          onChangeText={setTipo}
           placeholder="Tipo"
           placeholderTextColor="#ccc"
         />
@@ -72,14 +71,14 @@ export function Collection({}) {
         <TextInput
           style={styles.inputRow}
           value={sacolas}
-          onChangeText={sacolas}
+          onChangeText={setSacolas}
           placeholder="Sacolas"
           placeholderTextColor="#ccc"
         />
         <TextInput
           style={styles.inputRow}
           value={caixas}
-          onChangeText={caixas}
+          onChangeText={setCaixas}
           placeholder="Caixas"
           placeholderTextColor="#ccc"
         />
@@ -88,14 +87,14 @@ export function Collection({}) {
         <TextInput
           style={styles.input}
           value={peso}
-          onChangeText={peso}
+          onChangeText={setPeso}
           placeholder="Peso estimado"
           placeholderTextColor="#ccc"
         />        
         <TextInput
           style={styles.inputBig}
           value={observacao}
-          onChangeText={observacao}
+          onChangeText={setObservacao}
           placeholder="Observações"
           placeholderTextColor="#ccc"
         />
@@ -105,47 +104,13 @@ export function Collection({}) {
         <TextInput
           style={styles.inputBig}
           value={coleta}
-          onChangeText={coleta}
+          onChangeText={setColeta}
           placeholder="Horários"
           placeholderTextColor="#ccc"
         />
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold', fontSize: 20 }}>Resumo da Coleta</Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <SizedBox horizontal={10} />
-        {/* <TextInput
-          style={styles.inputRow}
-          value={textInputSacola}
-          onChangeText={}
-          placeholder="Material"
-          placeholderTextColor="#ccc"
-        /> */}
-        {/* <TextInput
-          style={styles.inputRow}
-          value={textInputCaixas}
-          onChangeText={handleChangeTextInput1}
-          placeholder="Quantidade"
-          placeholderTextColor="#ccc"
-        /> */}
-        <SizedBox horizontal={10} />
-        </View>
-        <SizedBox vertical={10} />
-        <View style={styles.divider} />
-        <View style={styles.container}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={styles.text}>Endereço:</Text>
-          </View>
-          <Text style={styles.text}></Text>
-        </View>
-        <View style={styles.divider} />
-        <SizedBox vertical={10} />
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: 'black', textAlign: 'left', padding: 20, fontSize: 15 }}>Coletas: </Text>
-        </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={
-          ()=>addNewDocument()
+          ()=>addNewDocument(tipo, caixas, coleta, endereco, observacao, peso, sacolas)
           }>
           <Text style={styles.text }>Cadastrar</Text>
         </TouchableOpacity>
