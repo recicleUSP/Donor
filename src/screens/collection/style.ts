@@ -5,8 +5,13 @@ import { Colors, Theme } from "../../constants/setting";
 const { width } = Dimensions.get('window');
 const buttonWidth = width * 0.8;
 
-
 export const styles = StyleSheet.create({
+  containerEdit: {
+    alignSelf:"center",
+    alignContent: "center",
+    alignItems: "center",
+    marginTop:17
+  },
   input: {
     height: 50,
     margin: 12,
@@ -123,5 +128,17 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  containerBox: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  label: {
+    margin: 8,
   },
 });

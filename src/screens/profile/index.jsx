@@ -19,8 +19,6 @@ import * as Validation from "../../utils/validation";
 import { RegisterAddress } from "../address";
 import { AddressCard } from "../address/components/card";
 
-
-
 export function Profile() {
   const {donorState, donorDispach} = useContext(DonorContext)
   const [editProf, setEditProf]    = useState(false);

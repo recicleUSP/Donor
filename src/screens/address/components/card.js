@@ -59,6 +59,43 @@ export const AddressCard = ({address, editFn, removeFn}) => {
     );
 }
 
+export const AddressCard2 = ({address, editFn, removeFn}) => {
+
+    return (
+        <View style={Style.container}>
+            <View style={Style.row}>
+                <Text style={Style.textTitle}>{address.title}</Text>
+            </View>
+
+           
+            <TextIcon
+                icon={"map-marker"}
+                color={Colors[Theme][4]}
+                size={Size20*0.8}
+                space={15}
+            >
+                {address.cep}.
+            </TextIcon>
+            <TextIcon
+                icon={"sign-direction"}
+                color={Colors[Theme][4]}
+                size={Size20*0.8}
+                space={15}
+            >
+                {address.city}, {address.state}.
+            </TextIcon>
+            <TextIcon
+                icon={"home"}
+                color={Colors[Theme][4]}
+                size={Size20*0.8}
+                space={15}
+            >
+                {address.street}, {address.num} {address.complement}.
+            </TextIcon>
+        </View>
+    );
+}
+
 const Style = StyleSheet.create({
     row:{
         display: "flex",
