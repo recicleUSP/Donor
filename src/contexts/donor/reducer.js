@@ -2,7 +2,6 @@ import * as Types from "./types";
 import { donor } from "./data";
 import { Sign, Login, LoginWithGoogle, SignOut, UpDate, UploadImage } from "../../firebase/providers/donor"
 
-
 export const reducer = (state, action) => {
     switch(action.type){
         case Types.LOGIN: {
@@ -32,6 +31,7 @@ export const reducer = (state, action) => {
         case Types.UPDATEADDRESS: {
             return{...state, address: action.payload};
         }
+
 
 
         case Types.SETSIGNOUT: {

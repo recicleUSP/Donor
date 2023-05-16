@@ -29,6 +29,9 @@ export function Home({}) {
   const quantidadeTipoA = tipos.filter((tipo) => tipo === 'Plástico').length;
   const quantidadeTipoB = tipos.filter((tipo) => tipo === 'Metal').length;
   const quantidadeTipoC = tipos.filter((tipo) => tipo === 'Eletrônico').length;
+  const quantidadeTipoD = tipos.filter((tipo) => tipo === 'Papel').length;
+  const quantidadeTipoE = tipos.filter((tipo) => tipo === 'Óleo').length;
+  const quantidadeTipoF = tipos.filter((tipo) => tipo === 'Vidro').length;
 
   useEffect(()=>{
     setImage(donorState.photoUrl 
@@ -79,6 +82,27 @@ export function Home({}) {
       name: 'Eletrônico',
       population: quantidadeTipoC,
       color: '#D33F49',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+    {
+      name: 'Óleo',
+      population: quantidadeTipoC,
+      color: 'green',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+    {
+      name: 'Vidro',
+      population: quantidadeTipoC,
+      color: 'pink',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+    {
+      name: 'Papel',
+      population: quantidadeTipoC,
+      color: 'brown',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
@@ -171,7 +195,8 @@ export function Home({}) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
-            <View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
+        <ScrollView horizontal >
           {tarefas ? (
             tarefas.map((tarefa) => (
               <View key={tarefa.id} style={styles.card}>
@@ -183,11 +208,12 @@ export function Home({}) {
               <SizedBox vertical={16} />
                 <Text>{tarefa.tipo}</Text>
                 <Text>Coleta Concluída</Text>
-            </View>
+          </View>
             ))
           ) : (
             <Text>Carregando...</Text>
           )}
+          </ScrollView>
         </View>
             <SizedBox vertical={5} />
        </ScrollView>

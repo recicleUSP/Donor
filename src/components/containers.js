@@ -25,6 +25,36 @@ export const ContainerTopRegister = () => {
   );
 };
 
+export const ContainerTopRegister2 = () => {
+  return (
+    <View style={styles.containerTop2}>
+      <View style={styles.outerBar}>
+        <View style={styles.innerBar2} />
+      </View>
+    </View>
+  );
+};
+
+export const ContainerTopRegister3 = () => {
+  return (
+    <View style={styles.containerTop2}>
+      <View style={styles.outerBar}>
+        <View style={styles.innerBar3} />
+      </View>
+    </View>
+  );
+};
+
+export const ContainerTopRegister4 = () => {
+  return (
+    <View style={styles.containerTop2}>
+      <View style={styles.outerBar}>
+        <View style={styles.innerBar4} />
+      </View>
+    </View>
+  );
+};
+
 export const ContainerTopClean = ({
   text     = "",
   icon     = "",
@@ -149,7 +179,25 @@ const styles = StyleSheet.create({
   },
   innerBar: {
     height: '100%',
-    width: '40%',
+    width: '30%',
+    backgroundColor: Colors[Theme][2],
+    borderRadius: 5,
+  },
+  innerBar2: {
+    height: '100%',
+    width: '60%',
+    backgroundColor: Colors[Theme][2],
+    borderRadius: 5,
+  },
+  innerBar3: {
+    height: '100%',
+    width: '90%',
+    backgroundColor: Colors[Theme][2],
+    borderRadius: 5,
+  },
+  innerBar4: {
+    height: '100%',
+    width: '100%',
     backgroundColor: Colors[Theme][2],
     borderRadius: 5,
   },

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
       padding: 10,
       backgroundColor: Colors[Theme][1],
       //alignItems:"center",
-      marginBottom: 15
+      marginBottom: 15,
     },
     container: {
       flex: 1,

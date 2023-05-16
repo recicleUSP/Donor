@@ -6,27 +6,19 @@ import { ContainerTop, ContainerTopRegister } from "../../components/containers"
 import { Colors,Theme } from "../../constants/setting";
 import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
-import { setDoc, getDoc, collection , addDoc, getFirestore, firebaseApp } from "firebase/firestore";
 import { Checkbox } from 'react-native-paper';
 import { DonorContext } from "../../contexts/donor/context";
-import { RegisterAddress } from "../address";
-import { AddressCard2 } from "../address/components/card";
 
-export function Collection({}) {
+export function Collection({router}) {
   const navigation = useNavigation();
-  const firestore = getFirestore(firebaseApp);
-  const {donorState, donorDispach} = useContext(DonorContext)
-  const [tipo, setTipo] = useState();
-  const [caixas, setCaixas] = useState();
-  const [coleta, setColeta] = useState();
-  const [endereco, setEndereco] = useState();
-  const [observacao, setObservacao] = useState();
-  const [peso, setPeso] = useState();
-  const [sacolas, setSacolas] = useState();
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
   const [checkString, setCheckedString] = useState([]);
+  const [checkTipo, setCheckedTipo] = useState([]);
+  const {donorState, donorDispach} = useContext(DonorContext)
+
+  const itens = ['Plástico', 'Metal', 'Papel', 'Eletrônico', 'Óleo', 'Vidro'];
 
   const checkBoxString = (value) => {
     if(checkString.includes(value)){
@@ -37,6 +29,17 @@ export function Collection({}) {
         setCheckedString(updatedItens);
       }
     } else{setCheckedString([...checkString,value])}
+  }
+
+  const checkBoxTipo = (itens) => {
+    if(checkTipo.includes(itens)){
+      const index = checkTipo.indexOf(itens);
+      if(index != -1){
+        const updatedItens = [...checkTipo];
+        updatedItens.splice(index, 1);
+        setCheckedTipo(updatedItens);
+      }
+    } else{setCheckedTipo([...checkTipo,itens])}
   }
 
   const handleCheckbox1Press = () => {
@@ -64,25 +67,6 @@ export function Collection({}) {
   ]);
   const [showOptions, setShowOptions] = useState(false);
 
-  async function addNewDocument(tipo, caixas, coleta, endereco, observacao, peso, sacolas) {
-      try {
-        const newDocRef = await addDoc(collection(firestore, 'recycling'), {
-          tipo: tipo,
-          caixas: caixas,
-          coleta: coleta,
-          endereco: endereco,
-          observacao: observacao,
-          peso: peso,
-          sacolas: sacolas,
-        });
-        console.log('Documento adicionado com ID:', newDocRef.id);
-        navigation.navigate('Home')
-      } catch (error) {
-        console.error('Erro ao adicionar documento:', error);
-      }
-  }
-
-  // Address Functions
   function addAddress(idex = -1){
     setIndex(idex);
     setResgister((last) => !last);
@@ -98,12 +82,17 @@ export function Collection({}) {
       setLoandding(false); 
   }
 
+  const nextPage = () => {
+    console.log('Navegando para a Página 2');
+    navigation.navigate('Collection2', { "tipo":"Plástico", endereco: checkString});
+  };
+
   return (
       <ScrollView>
         <ContainerTop/>     
         <ContainerTopRegister/>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold', fontSize: 20 }}>Cadastrar Coleta</Text>
+              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold', fontSize: 20 }}>Cadastrar Coleta 1</Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Endereço</Text>
@@ -129,89 +118,26 @@ export function Collection({}) {
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Tipo de material</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Checkbox
-              status={checked1 ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setChecked1(handleCheckbox1Press);
-              }}
-              color={'green'}
-              uncheckColor={'red'}
-          />
-          <Text>Metal</Text>
-          <Checkbox
-              status={checked2 ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setChecked1(handleCheckbox2Press);
-              }}
-              color={'green'}
-              uncheckColor={'red'}
-          />
-          <Text>Plástico</Text>
-          <Checkbox
-              status={checked3 ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setChecked1(handleCheckbox3Press);
-              }}
-              color={'green'}
-              uncheckColor={'red'}
-          />
-          <Text>Eletrônico</Text>
+          <ScrollView>
+          {itens.map((it) => {
+              return (
+                <View style={styles.containerEdit}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Checkbox
+                      status={checkString.includes(it) ? 'checked' : 'unchecked'}
+                      onPress={()=>checkBoxString(it)}
+                      color={'green'}
+                      uncheckColor={'red'}
+                  />
+                  <Text>{it}</Text>
+                  </View>
+                </View>
+              );
+            })}
+          </ScrollView>
         </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Quantidade</Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <SizedBox horizontal={10} />
-        <TextInput
-          style={styles.inputRow}
-          value={sacolas}
-          onChangeText={setSacolas}
-          placeholder="Sacolas"
-          placeholderTextColor="#ccc"
-        />
-        <TextInput
-          style={styles.inputRow}
-          value={caixas}
-          onChangeText={setCaixas}
-          placeholder="Caixas"
-          placeholderTextColor="#ccc"
-        />
-        <SizedBox horizontal={10} />
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Peso</Text>
-        </View>
-        <TextInput
-          style={styles.input}
-          value={peso}
-          onChangeText={setPeso}
-          placeholder="Peso estimado"
-          placeholderTextColor="#ccc"
-        />        
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Observações</Text>
-        </View>
-        <TextInput
-          style={styles.inputBig}
-          value={observacao}
-          onChangeText={setObservacao}
-          placeholder="Observações"
-          placeholderTextColor="#ccc"
-        />
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold', fontSize: 20 }}>Dias para a coleta</Text>
-        </View>
-        <TextInput
-          style={styles.inputBig}
-          value={coleta}
-          onChangeText={setColeta}
-          placeholder="Horários"
-          placeholderTextColor="#ccc"
-        />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity style={styles.button} onPress={
-          ()=>addNewDocument("Plástico", caixas, coleta, checkString, observacao, peso, sacolas)
-          }>
+        <TouchableOpacity style={styles.button} onPress={nextPage}>
           <Text style={styles.text }>Cadastrar</Text>
         </TouchableOpacity>
             </View>
