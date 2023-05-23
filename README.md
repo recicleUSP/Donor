@@ -61,7 +61,7 @@ Com o projeto baixado, você deve entrar na pasta raiz do projeto e abrir um ter
     npx expo start 
     ```
 
-## Adicionado seu Próprio Banco de Dados Firebase
+## Adicionando seu Próprio Banco de Dados Firebase
 Para começar a utilizar o projeto de maneira personalizada e individual, é necessário criar um banco de dados Firebase e conectá-lo ao aplicativo específico. É importante ressaltar que os dados inseridos no aplicativo são apenas exemplos e nenhuma operação real está sendo realizada no banco de dados.
 1. Crie uma conta ou faça login no Firebase 
     *  Acesse o site do Firebase (https://firebase.google.com) e faça login ou crie uma nova conta.
