@@ -8,6 +8,11 @@ export const TextSimple = ({content}) => {
         <Text style={Style.textSimple}>{content}</Text>
     );
 }
+export const TextBold = ({content}) => {
+    return (
+        <Text style={Style.textBold}>{content}</Text>
+    );
+}
 export const TextSimpleOpposite = ({
     content,
     alignH = "center",
@@ -45,6 +50,11 @@ const Style = StyleSheet.create({
         color: Colors[Theme][5],
         fontSize: Size20,
         ...FontRegular
+    },
+    textBold : {
+        color: Colors[Theme][5],
+        fontSize: Size20*0.8,
+        ...FontBold
     },
     textIcon : {
 

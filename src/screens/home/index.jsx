@@ -1,13 +1,21 @@
 import { View, ScrollView, Button, Text, Center, Icon, TouchableOpacity } from "react-native";
 import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
-import { ButtonDefaultData} from "../../components/buttons";
 import { Colors,Theme } from "../../constants/setting";
-import { Size20, Size28 } from "../../constants/scales";
-import React from "react";
+import { useContext } from "react";import messaging from '@react-native-firebase/messaging';
+
+async function requestUserPermission() {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    console.log('Authorization status:', authStatus);
+  }
+}
 import { SizedBox } from 'sizedbox';
 import { DonorContext } from "../../contexts/donor/context";
-import { useContext } from "react";
 import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
 import {useState, useEffect} from 'react';
@@ -87,21 +95,21 @@ export function Home({}) {
     },
     {
       name: 'Óleo',
-      population: quantidadeTipoC,
+      population: quantidadeTipoE,
       color: 'green',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Vidro',
-      population: quantidadeTipoC,
+      population: quantidadeTipoF,
       color: 'pink',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Papel',
-      population: quantidadeTipoC,
+      population: quantidadeTipoD,
       color: 'brown',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
@@ -118,13 +126,9 @@ export function Home({}) {
   };
 
   useEffect(() => {
-    // Cria um listener para a coleção 'recycling' no Firestore
     const unsubscribe = onSnapshot(collection(firestore, 'recycling'), (querySnapshot) => {
-      // Cria um array para armazenar os dados da coleção
       const tarefas = [];
-      // Itera sobre cada documento da coleção
       querySnapshot.forEach((doc) => {
-        // Extrai os dados do documento e adiciona ao array de tarefas
         const data = doc.data();
         tarefas.push({
           id: doc.id,
@@ -137,10 +141,8 @@ export function Home({}) {
           sacolas: data.sacolas,
         });
       });
-      // Atualiza o estado com as tarefas obtidas do Firestore
       setTarefas(tarefas);
     });
-    // Retorna uma função para cancelar o listener quando o componente for desmontado
     return () => unsubscribe();
   }, []);  
 
@@ -149,10 +151,8 @@ export function Home({}) {
         <ImageCircleIcon
           size={130}
           sizeIcon={0}
-          // icon={"camera"}
           align={"flex-start"}
           img={image}
-          // fun={changeProfileImage}
           color={Colors[Theme][5]}
           bgColor={Colors[Theme][0]}
         />
@@ -162,11 +162,8 @@ export function Home({}) {
          icon="information"
        />
        <SizedBox vertical={5} />
-       {/* <SizedBox ={10} /> */}
        <View style={styles.main}>
-            
             <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>Avaliação</Text>
-            
         </View>
        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <View>
@@ -195,25 +192,15 @@ export function Home({}) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
-        <ScrollView horizontal >
-          {tarefas ? (
-            tarefas.map((tarefa) => (
-              <View key={tarefa.id} style={styles.card}>
+        <View style={styles.card2}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ marginRight: 30 }}>{"caixas: "+tarefa.caixas}</Text>
-                <Text style={{ marginRight: 30 }}>{"sacolas: "+tarefa.sacolas}</Text>
-                <Text>{"peso: "+tarefa.peso}</Text>
+                <Text style={{ marginRight: 30 }}>{"caixas: "}</Text>
+                <Text style={{ marginRight: 30 }}>{"sacolas: "}</Text>
+                <Text>{"peso: "}</Text>
               </View>
               <SizedBox vertical={16} />
-                <Text>{tarefa.tipo}</Text>
+                <Text>"teste"</Text>
                 <Text>Coleta Concluída</Text>
-          </View>
-            ))
-          ) : (
-            <Text>Carregando...</Text>
-          )}
-          </ScrollView>
         </View>
             <SizedBox vertical={5} />
        </ScrollView>

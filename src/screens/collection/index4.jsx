@@ -11,14 +11,15 @@ export function Collection4({route}) {
   const firestore = getFirestore(firebaseApp);
   const navigation = useNavigation();
 
-  const { tipo, endereco, caixas, sacolas, peso, coleta, observacao } = route.params;
+  const { tipo, endereco, caixas, sacolas, peso, selectedDay, selectedHour, observacao  } = route.params;
 
-  async function addNewDocument(tipo, caixas, coleta, endereco, observacao, peso, sacolas) {
+  async function addNewDocument(tipo, caixas, selectedDay, selectedHour, endereco, observacao, peso, sacolas) {
     try {
       const newDocRef = await addDoc(collection(firestore, 'recycling'), {
         tipo: tipo,
         caixas: caixas,
-        coleta: coleta,
+        hora: selectedHour,
+        dia: selectedDay,
         endereco: endereco,
         observacao: observacao,
         peso: peso,
@@ -48,19 +49,20 @@ export function Collection4({route}) {
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Endereço: {endereco}</Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Coletas: {coleta}</Text>
+              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Coletas: dia {selectedDay} e hora {selectedHour}</Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Observação: {observacao}</Text>
         </View>
+        <SizedBox vertical={30} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={
-          ()=>addNewDocument(tipo, caixas, coleta, endereco, observacao, peso, sacolas)
+          ()=>addNewDocument(tipo, caixas, selectedDay, selectedHour, endereco, observacao, peso, sacolas)
           }>
           <Text style={styles.text }>Cadastrar</Text>
         </TouchableOpacity>
             </View>
-            <SizedBox vertical={30} />
+            <SizedBox vertical={30} /> 
       </ScrollView>
   );
 }

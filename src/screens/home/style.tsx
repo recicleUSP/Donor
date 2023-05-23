@@ -53,4 +53,18 @@ export const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: 'bold',
     },
+    card2: {
+      backgroundColor: 'white',
+      borderWidth: 1,
+      borderColor: 'black',
+      borderRadius: 4,
+      padding: 14,
+      marginBottom: 14,
+      width: 300,
+      alignSelf: 'center', 
+    },    
+    textCard: {
+      fontSize: 16,
+      color: 'black',
+    },
   });

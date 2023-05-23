@@ -60,6 +60,7 @@ export function Collection2({ route }) {
           placeholder="Peso estimado"
           placeholderTextColor="#ccc"
         />        
+        <SizedBox vertical={30} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={nextPage}>
           <Text style={styles.text }>Cadastrar</Text>

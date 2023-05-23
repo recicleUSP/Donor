@@ -141,4 +141,56 @@ export const styles = StyleSheet.create({
   label: {
     margin: 8,
   },
+  card: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 4,
+    padding: 14,
+    marginBottom: 14,
+    width: 330,
+    alignSelf: 'center', 
+  },   
+  textCard: {
+    fontSize: 16,
+    color: 'black',
+  },
+  container2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  label2: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  selectedHour: {
+    marginTop: 16,
+  },
+});
+
+export const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'black', 
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30,
+    backgroundColor: 'white',
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30,
+    backgroundColor: 'white',
+  },
 });

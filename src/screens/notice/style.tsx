@@ -18,4 +18,14 @@ export const styles = StyleSheet.create({
       fontSize: 36,
       color: "#38434D",
     },
+    block: {
+      marginHorizontal: 20,
+      marginVertical: 5
+    },
+    row: {
+      flexDirection:"row",
+      alignContent:"center",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
   });

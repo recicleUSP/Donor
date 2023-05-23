@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, getRedirectResult, signInWithRedirect, signOut } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { Firestore, Auth } from "../config/connection";
 import { VerifyErroCode } from "../config/errors";
@@ -57,6 +57,7 @@ async function SignOut(callback){
 
 async function UpDate(data, dispach, callback) {
   const id = data.id;
+  
   delete data.pass;
   delete data.id;
   delete data.logged;
@@ -70,6 +71,28 @@ async function UpDate(data, dispach, callback) {
       content: VerifyErroCode(err.code)
     }
     callback(true, error);
+  });          
+}
+
+async function UpDateTokenNotification(id,token, callback) {
+  updateDoc(doc(Firestore, "donor", id), {pushTokenNotification: token}
+  ).catch((err)=>{
+    const error = {
+      title: "Falha ao atualizar dados",
+      content: VerifyErroCode(err.code)
+    }
+    callback(error);
+  });          
+}
+
+async function UpDateNotificationList(id, notification, callback) {
+  updateDoc(doc(Firestore, "donor", id), {notifications: arrayUnion(notification)}
+  ).catch((err)=>{
+    const error = {
+      title: "Falha ao atualizar dados",
+      content: VerifyErroCode(err.code)
+    }
+    callback(error);
   });          
 }
 
@@ -144,5 +167,4 @@ async function UploadImage(data, callback){
   });
 }
 
-export {Sign, Login, LoginWithGoogle, SignOut, UpDate, UploadImage};
-
+export {Sign, Login, LoginWithGoogle, SignOut, UpDate, UploadImage, UpDateTokenNotification, UpDateNotificationList};

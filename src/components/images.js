@@ -17,6 +17,15 @@ export const ImageCircle = ({
     );
 }
 
+export const ImageCircleDefault = ({
+    size = Height*0.16,                 // Tamanho da imagem
+    img = "",                           // Caminho da imagem
+}) => {
+    return (
+        <Image style={{...Styles.circleImage, height:size, width:size}} source={img} alt="Imagem de Perfil" />
+    );
+}
+
 export const ImageCircleIcon = ({
     size = Height*0.16,                 // Tamanho da imagem
     img = "",                           // Caminho da imagem

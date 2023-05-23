@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { TextInput ,Text, View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
-import { styles } from "./style";
+import { styles, pickerSelectStyles } from "./style";
 import { ScrollView } from "react-native-gesture-handler";
 import { ContainerTop, ContainerTopRegister } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
@@ -8,17 +8,26 @@ import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
 import { Checkbox } from 'react-native-paper';
 import { DonorContext } from "../../contexts/donor/context";
+import RNPickerSelect from 'react-native-picker-select';
 
 export function Collection({router}) {
   const navigation = useNavigation();
-  const [checked1, setChecked1] = useState(false);
-  const [checked2, setChecked2] = useState(false);
-  const [checked3, setChecked3] = useState(false);
   const [checkString, setCheckedString] = useState([]);
-  const [checkTipo, setCheckedTipo] = useState([]);
+  const [checkTipo, setCheckedTipo] = useState(null);
   const {donorState, donorDispach} = useContext(DonorContext)
 
-  const itens = ['Plástico', 'Metal', 'Papel', 'Eletrônico', 'Óleo', 'Vidro'];
+  const itens = [
+    { label: 'Plástico', value: 'Plástico' },
+    { label: 'Metal', value: 'Metal' },
+    { label: 'Papel', value: 'Papel' },
+    { label: 'Eletrônico', value: 'Eletrônico' },
+    { label: 'Óleo', value: 'Óleo' },
+    { label: 'Vidro', value: 'Vidro' },
+  ];
+
+  const handleTipoChange = (value) => {
+    setCheckedTipo(value);
+  };
 
   const checkBoxString = (value) => {
     if(checkString.includes(value)){
@@ -42,31 +51,6 @@ export function Collection({router}) {
     } else{setCheckedTipo([...checkTipo,itens])}
   }
 
-  const handleCheckbox1Press = () => {
-    setChecked1(true);
-    setChecked2(false);
-    setChecked3(false);
-  };
-
-  const handleCheckbox2Press = () => {
-    setChecked1(false);
-    setChecked2(true);
-    setChecked3(false);
-  };
-
-  const handleCheckbox3Press = () => {
-    setChecked1(false);
-    setChecked2(false);
-    setChecked3(true);
-  };
-  
-  const [options, setOptions] = useState([
-    { label: 'Option 1', value: 'Plástico' },
-    { label: 'Option 2', value: 'Metal' },
-    { label: 'Option 3', value: 'Eletrônico' },
-  ]);
-  const [showOptions, setShowOptions] = useState(false);
-
   function addAddress(idex = -1){
     setIndex(idex);
     setResgister((last) => !last);
@@ -84,7 +68,7 @@ export function Collection({router}) {
 
   const nextPage = () => {
     console.log('Navegando para a Página 2');
-    navigation.navigate('Collection2', { "tipo":"Plástico", endereco: checkString});
+    navigation.navigate('Collection2', { tipo: checkTipo, endereco: checkString});
   };
 
   return (
@@ -117,25 +101,20 @@ export function Collection({router}) {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Tipo de material</Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <ScrollView>
-          {itens.map((it) => {
-              return (
-                <View style={styles.containerEdit}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Checkbox
-                      status={checkString.includes(it) ? 'checked' : 'unchecked'}
-                      onPress={()=>checkBoxString(it)}
-                      color={'green'}
-                      uncheckColor={'red'}
-                  />
-                  <Text>{it}</Text>
-                  </View>
-                </View>
-              );
-            })}
-          </ScrollView>
+        <View style={styles.card}>
+          <Text style={styles.label2}>Escolha um Material:</Text>
+          <RNPickerSelect
+            placeholder={{ label: 'Selecione um material', value: null }}
+            items={itens}
+            onValueChange={handleTipoChange}
+            value={checkTipo}
+            style={pickerSelectStyles}
+          />
+          <Text style={styles.selectedHour}>
+            Material selecionado: {checkTipo || 'Nenhum material selecionado'}
+          </Text>
         </View>
+        <SizedBox vertical={30} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={nextPage}>
           <Text style={styles.text }>Cadastrar</Text>

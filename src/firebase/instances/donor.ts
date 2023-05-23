@@ -8,6 +8,7 @@ const Donor = {
     prize:      0,
     donations:  [],
     address:    [],
+    notifications: [],
     statistic:  Statistic
 };
 
