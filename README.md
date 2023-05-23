@@ -47,6 +47,7 @@ O processo de instalação do React Native no Linux envolve alguns passos. Aqui 
 
 #### Já tenho o React Native instaldo
 Com o projeto baixado, você deve entrar na pasta raiz do projeto e abrir um terminal para instalar os pacotes necessários, permitindo realizar a execução do mesmo. Para isso, execute o seguinte comando:
+
 6. Instalando dependências do projeto
     ```sh
     npm install 
