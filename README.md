@@ -2,7 +2,7 @@
 
 Uma parceria entre USP/CEFET-MG, para criar o software de doação de lixo reciclável as organizações. 
 
-## Primeioros passos
+## Primeiros passos
 ![](assets/readmeIMG/download.png)
 
 Para configurar o ambiente, é necessário fazer o download do projeto. Você pode optar por baixar o zip do projeto de forma direta, como mostrado na marcação 2 da imagem acima, ou clonar o repositório utilizando o seguinte comando, com a URL destacada na marcação 1 da imagem acima:
