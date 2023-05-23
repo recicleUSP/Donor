@@ -1,6 +1,14 @@
 # Donor (Aplicato do doador)
 
-Uma parceria entre USP/CEFET-MG, para criar o software de doação de lixo reciclável as organizações. 
+A parceria entre a Universidade de São Paulo (USP) e o Centro Federal de Educação Tecnológica de Minas Gerais (CEFET-MG) resultou na criação de um software inovador voltado para a doação de lixo reciclável às organizações. Essa colaboração entre duas instituições de renome visa promover a conscientização ambiental e contribuir para a sustentabilidade.
+
+O software desenvolvido permite que usuários e empresas realizem doações de lixo reciclável para organizações e cooperativas de reciclagem. Essa iniciativa tem como objetivo principal incentivar a redução de resíduos e o reaproveitamento de materiais, além de fomentar a economia circular.
+
+Por meio dessa parceria estratégica, a USP e o CEFET-MG uniram seus conhecimentos e experiências para criar um sistema seguro, eficiente e de fácil utilização. O software oferece recursos como cadastro de doadores e receptores, rastreamento de doações, estatísticas de impacto ambiental e interação entre os usuários.
+
+Essa iniciativa conjunta entre as duas instituições de ensino busca não apenas desenvolver uma solução tecnológica, mas também promover a conscientização sobre a importância da reciclagem e do correto descarte de resíduos. A parceria entre a USP e o CEFET-MG demonstra o compromisso dessas instituições com a inovação, o desenvolvimento sustentável e a responsabilidade socioambiental.
+
+Com esse software de doação de lixo reciclável, espera-se fortalecer as ações de reciclagem, engajando a comunidade e as empresas na causa ambiental. Ao unir esforços e conhecimentos, a parceria USP-CEFET-MG busca criar soluções que contribuam para um futuro mais sustentável, onde a reciclagem e o reaproveitamento de materiais sejam práticas comuns e essenciais para a preservação do meio ambiente. 
 
 ## Primeiros passos
 ![](assets/readmeIMG/download.png)
