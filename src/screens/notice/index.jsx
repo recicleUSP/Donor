@@ -88,7 +88,6 @@ export function Notice() {
     registerForPushNotificationsAsync(donorState.id, callback).then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      console.log(notification)
       const notfy = {
         title: notification.request.content.title,
         date:  notification.date,
