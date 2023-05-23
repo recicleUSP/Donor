@@ -3,7 +3,7 @@ import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
 import { useContext } from "react";import messaging from '@react-native-firebase/messaging';
-
+import { Size50, Width } from "../../constants/scales";
 async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
   const enabled =
@@ -21,6 +21,7 @@ import { ImageCircleIcon } from "../../components/images";
 import {useState, useEffect} from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { setDoc, getDoc, collection, onSnapshot , addDoc, getFirestore, firebaseApp, Firestore } from "firebase/firestore";
+import { CardHome } from "../address/components/card";
 
 export function Home({}) {
   const navigation = useNavigation();
@@ -29,9 +30,6 @@ export function Home({}) {
   const basedImage                       = require("../../../assets/images/profile.webp");
   const [image, setImage]                = useState(basedImage);
   const [tarefas, setTarefas]            = useState([]);
-  const [metal, setMetal]                = useState([]);
-  const [madeira, setMadeira]            = useState([]);
-  const [eletronico, setEletronico]      = useState([]);
   const quantidadeTarefas = tarefas.length;
   const tipos = tarefas.map((tarefa) => tarefa.tipo);
   const quantidadeTipoA = tipos.filter((tipo) => tipo === 'Plástico').length;
@@ -192,16 +190,15 @@ export function Home({}) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
-        <View style={styles.card2}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ marginRight: 30 }}>{"caixas: "}</Text>
-                <Text style={{ marginRight: 30 }}>{"sacolas: "}</Text>
-                <Text>{"peso: "}</Text>
-              </View>
-              <SizedBox vertical={16} />
-                <Text>"teste"</Text>
-                <Text>Coleta Concluída</Text>
-        </View>
+            <ScrollView horizontal>
+              {tarefas.map((index) => (
+                <View style={[styles.containerEdit, { marginRight: 50 }]}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <CardHome tipo={index.tipo} endereco={index.endereco} sacolas={index.sacolas} caixas={index.caixas} key={index} />
+                  </View>
+                </View>
+              ))}
+            </ScrollView>
             <SizedBox vertical={5} />
        </ScrollView>
   );

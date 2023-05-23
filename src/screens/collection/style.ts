@@ -18,7 +18,11 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
+    width: width*0.86,
     borderColor: '#ccc',
+    alignSelf:"center",
+    alignContent: "center",
+    alignItems: "center",
   },
   inputBig: {
     height: 120,
@@ -30,7 +34,7 @@ export const styles = StyleSheet.create({
   },
   inputRow: {
     height: 50,
-    width: 140,
+    width: width*0.4,
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
@@ -148,7 +152,7 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 14,
     marginBottom: 14,
-    width: 330,
+    width: width*0.9,
     alignSelf: 'center', 
   },   
   textCard: {

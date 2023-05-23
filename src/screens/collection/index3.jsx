@@ -15,6 +15,7 @@ export function Collection3({route}) {
   const [observacao, setObservacao2] = useState();
   const [selectedHour, setSelectedHour] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedMoreOneDay, setSelectedMoreOneDay] = useState(null);
 
   const hours = [
     { label: '7:00', value: '7' },
@@ -29,6 +30,9 @@ export function Collection3({route}) {
     { label: '16:00', value: '16' },
     { label: '17:00', value: '17' },
     { label: '18:00', value: '18' },
+    { label: '8:00 as 10:00', value: 'manhã' },
+    { label: '13:00 as 18:00', value: 'tarde' },
+    { label: '18:00 as 22:00', value: 'noite' },
   ];
 
   const days = [
@@ -39,6 +43,8 @@ export function Collection3({route}) {
     { label: 'sexta', value: 'sexta' },
     { label: 'sábado', value: 'sábado' },
     { label: 'domingo', value: 'domingo' },
+    { label: 'dias úteis', value: 'dias úteis' },
+    { label: 'fim de semana', value: 'fim de semana' },
   ];
 
   const handleHourChange = (value) => {
@@ -102,6 +108,21 @@ export function Collection3({route}) {
             Dia selecionado: {selectedDay || 'Nenhum dia selecionado'}
           </Text>
         </View>
+        {/* <View style={styles.containerEdit}>
+        {days.map((index) => {
+            return (
+              <View style={styles.containerEdit}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Checkbox
+                    onPress={()=>setSelectedMoreOneDay()}
+                    color={'green'}
+                    uncheckColor={'red'}
+                />
+                </View>
+              </View>
+            );
+          })}
+        </View> */}
         <SizedBox vertical={30} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={nextPage}>

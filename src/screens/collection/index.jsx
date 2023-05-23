@@ -9,6 +9,7 @@ import { SizedBox } from 'sizedbox';
 import { Checkbox } from 'react-native-paper';
 import { DonorContext } from "../../contexts/donor/context";
 import RNPickerSelect from 'react-native-picker-select';
+import { AddressCard2 } from "../address/components/card";
 
 export function Collection({router}) {
   const navigation = useNavigation();
@@ -92,7 +93,7 @@ export function Collection({router}) {
                     color={'green'}
                     uncheckColor={'red'}
                 />
-                <Text>{address.title}</Text>
+                <AddressCard2 address={address} editFn={() => addAddress(address)} key={address}/>
                 </View>
               </View>
             );

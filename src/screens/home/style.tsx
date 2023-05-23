@@ -60,11 +60,17 @@ export const styles = StyleSheet.create({
       borderRadius: 4,
       padding: 14,
       marginBottom: 14,
-      width: 300,
+      width: width*0.9,
       alignSelf: 'center', 
     },    
     textCard: {
       fontSize: 16,
       color: 'black',
+    },
+    containerEdit: {
+      alignSelf:"center",
+      alignContent: "center",
+      alignItems: "center",
+      marginTop:17
     },
   });

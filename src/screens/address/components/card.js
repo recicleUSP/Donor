@@ -1,8 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, Theme } from "../../../constants/setting";
-import { Width, Height, Size20, FontBold, FontRegular } from "../../../constants/scales";
+import { Width, Height, Size20, Size50, FontBold, FontRegular } from "../../../constants/scales";
 import { ButtonIcon } from "../../../components/buttons";
 import { TextIcon, TextSimple } from "../../../components/texts";
+import { ImageCircleDefault } from "../../../components/images";
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const AddressCard = ({address, editFn, removeFn}) => {
 
@@ -96,11 +99,82 @@ export const AddressCard2 = ({address, editFn, removeFn}) => {
     );
 }
 
+export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sacolas }) => {
+    return (
+      <View style={Style.container}>
+        <View style={Style.row}>
+        <Text style={Style.textTitle}>{tipo}</Text>
+          <ImageCircleDefault
+            img={{ uri: 'https://www.florence.edu.br/wp-content/uploads/2022/08/Imagem-Materia_Dia-do-Cachorro-600x400.png' }}
+            size={Size50 * 1.5}
+          />
+        </View>
+  
+        <View style={Style.row2}> 
+        <FontAwesomeIcon name="cube" size={15} color="black" />
+        <TextIcon
+          color={Colors[Theme][4]}
+          size={Size20 * 0.8}
+          space={15}
+        >
+          {caixas}.
+        </TextIcon>
+        </View>
+        <View style={Style.row2}> 
+        <FontAwesomeIcon name="shopping-bag" size={15} color="black" />
+        <TextIcon
+          color={Colors[Theme][4]}
+          size={Size20 * 0.8}
+          space={15}
+        >
+          {sacolas}.
+        </TextIcon>
+        </View>
+        <View style={Style.row2}> 
+        <FontAwesomeIcon name="balance-scale" size={15} color="black" />
+        <TextIcon
+          color={Colors[Theme][4]}
+          size={Size20 * 0.8}
+          space={15}
+        >
+          {peso}.
+        </TextIcon>
+        </View>
+        <TextIcon
+          icon={"home"}
+          color={Colors[Theme][4]}
+          size={Size20 * 0.8}
+          space={15}
+        >
+          {endereco}.
+        </TextIcon>
+        <View style={Style.row2}> 
+        <FontAwesomeIcon name="circle" size={15} color="black" />
+        <TextIcon
+          color={Colors[Theme][4]}
+          size={Size20 * 0.8}
+          space={15}
+        >
+          {"Status: Em andamento"}.
+        </TextIcon>
+        </View>
+      </View>
+
+    );
+  }
+  
+
 const Style = StyleSheet.create({
     row:{
         display: "flex",
         flexDirection:"row",        
         justifyContent:"space-between",        
+    },
+
+    row2:{
+        display: "flex",
+        flexDirection:"row",        
+        // justifyContent:"space-between",        
     },
 
     textTitle : {
