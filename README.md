@@ -1,4 +1,4 @@
-# Donor (Aplicato do doador)
+# Donor (Aplicativo do doador)
 
 A parceria entre a Universidade de São Paulo (USP) e o Centro Federal de Educação Tecnológica de Minas Gerais (CEFET-MG) resultou na criação de um software inovador voltado para a doação de lixo reciclável às organizações. Essa colaboração entre duas instituições de renome visa promover a conscientização ambiental e contribuir para a sustentabilidade.
 
