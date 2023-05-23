@@ -64,7 +64,7 @@ Com o projeto baixado, você deve entrar na pasta raiz do projeto e abrir um ter
 Para começar a utilizar o projeto de maneira personalizada e individual, é necessário criar um banco de dados Firebase e conectá-lo ao aplicativo específico. É importante ressaltar que os dados inseridos no aplicativo são apenas exemplos e nenhuma operação real está sendo realizada no banco de dados.
 1. Crie uma conta ou faça login no Firebase 
     *  Acesse o site do Firebase (https://firebase.google.com) e faça login ou crie uma nova conta.
-    *  
+  
 2. Crie um novo projeto no Firebase
     * No console do Firebase, crie um novo projeto clicando no botão "Adicionar projeto" e siga as instruções fornecidas.
     ![](assets/readmeIMG/novoProjeto.png)
@@ -87,6 +87,30 @@ Para começar a utilizar o projeto de maneira personalizada e individual, é nec
 
 ## Configuração de Layout
 
+Todas as configurações de layout e estrutura do aplicativo estão disponíveis dentro da pasta src/constants. Esses arquivos fornecem opções para personalizar o layout, as cores, as fontes e outras configurações importantes do aplicativo. Aqui estão algumas das configurações disponíveis:
+
+1. **advices.ts** : mensagens específicas e cores associadas à tela de avisos para fornecer informações importantes ao usuário. Essas mensagens e cores têm o objetivo de chamar a atenção do usuário para situações relevantes.
+2. **erros.ts** : estão definidas mensagens de erro que podem ser exibidas ao usuário para fornecer informações claras sobre problemas ou situações inesperadas
+3. **firebase.ts** : estão disponíveis as configurações do Firebase, juntamente com as informações de acesso ao banco de dados. Essas configurações e informações são cruciais para estabelecer a conexão entre o aplicativo e o Firebase.  
+4. **scale.ts** : estão disponíveis informações sobre as fontes e a escala utilizadas para garantir uma experiência visual consistente e agradável aos usuários. Essas informações são importantes para a definição do estilo de texto e a legibilidade do conteúdo.
+5. **setting.ts** : informações sobre as cores utilizadas e o tema disponível, permitindo a escolha entre os modos claro (light) e escuro (dark). Essas informações são essenciais para definir a aparência visual do aplicativo e proporcionar uma experiência personalizada aos usuários. 
+
+Além desses arquivos, você também pode encontrar outras configurações importantes relacionadas a estrutura e organização do código do aplicativo. Certifique-se de explorar a pasta src/constants para ajustar as configurações conforme necessário e personalizar o aplicativo de acordo com suas preferências e requisitos.
+
+## Estrutura do projeto
+A estrutura do projeto pode ser visualizada em duas etapas simples: a primeira etapa refere-se à organização do banco de dados, enquanto a segunda etapa envolve o padrão de desenvolvimento e a separação de pastas adotados.
+
+#### Banco de Dados
+A estrutura do banco de dados do aplicativo pode ser visualizada na imagem abaixo, por meio de uma tabela que apresenta o nome de cada estrutura, suas variáveis e seus tipos correspondentes. Essa tabela é essencial para entender a organização dos dados e a relação entre as diferentes entidades. 
+![](assets/readmeIMG/database.png)
+Essa tabela fornece uma visão geral das estruturas presentes no banco de dados do aplicativo. Cada estrutura possui um nome específico e é composta por variáveis, representadas pelas colunas da tabela, e seus respectivos tipos de dados.
+Ao analisar essa estrutura de banco de dados, é possível entender como as informações são armazenadas e relacionadas entre si. Essas estruturas e variáveis podem representar entidades, atributos e relações do aplicativo, fornecendo uma base sólida para a manipulação e a recuperação dos dados.
+
+#### Organização do Projeto
+A organização de pastas no projeto segue o padrão Model-View-Controller (MVC) em conjunto com o desenvolvimento componentizado, visando proporcionar maior adaptabilidade e desempenho ao aplicativo. Essa estrutura de pastas é projetada para facilitar a manutenção, a escalabilidade e a colaboração entre os desenvolvedores. A imagem abaixo ilustra essa organização:
+![](assets/readmeIMG/pasta.png)
+Essa organização de pastas promove uma separação clara de responsabilidades, facilitando a manutenção e a reutilização de componentes em diferentes partes do aplicativo. Além disso, o uso do padrão MVC auxilia no desenvolvimento ágil e na manutenção do código ao longo do tempo.
+É importante lembrar que essa estrutura pode ser adaptada de acordo com as necessidades do projeto, mas a ideia principal é proporcionar uma organização clara e coesa para facilitar o desenvolvimento e a colaboração entre os membros da equipe.
 
 # Autores
 
