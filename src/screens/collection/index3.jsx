@@ -8,14 +8,14 @@ import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
 import { DonorContext } from "../../contexts/donor/context";
 import RNPickerSelect from 'react-native-picker-select';
+import { Checkbox } from "react-native-paper";
 
 export function Collection3({route}) {
   const {donorState, donorDispach} = useContext(DonorContext)
   const navigation = useNavigation();
   const [observacao, setObservacao2] = useState();
-  const [selectedHour, setSelectedHour] = useState(null);
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [selectedMoreOneDay, setSelectedMoreOneDay] = useState(null);
+  const [checkedItemsHours, setCheckedItemsHours] = useState([]);
+  const [checkedItemsDays, setCheckedItemsDays] = useState([]);
 
   const hours = [
     { label: '7:00', value: '7' },
@@ -30,9 +30,6 @@ export function Collection3({route}) {
     { label: '16:00', value: '16' },
     { label: '17:00', value: '17' },
     { label: '18:00', value: '18' },
-    { label: '8:00 as 10:00', value: 'manhã' },
-    { label: '13:00 as 18:00', value: 'tarde' },
-    { label: '18:00 as 22:00', value: 'noite' },
   ];
 
   const days = [
@@ -43,8 +40,6 @@ export function Collection3({route}) {
     { label: 'sexta', value: 'sexta' },
     { label: 'sábado', value: 'sábado' },
     { label: 'domingo', value: 'domingo' },
-    { label: 'dias úteis', value: 'dias úteis' },
-    { label: 'fim de semana', value: 'fim de semana' },
   ];
 
   const handleHourChange = (value) => {
@@ -59,7 +54,25 @@ export function Collection3({route}) {
 
   const nextPage = () => {
     console.log('Navegando para a Página 4');
-    navigation.navigate('Collection4', { tipo, endereco, caixas, sacolas, peso, selectedDay, selectedHour, observacao});
+    navigation.navigate('Collection4', { tipo, endereco, caixas, sacolas, peso, setCheckedItemsDays, setCheckedItemsHours, observacao});
+  };
+
+  const handleCheckboxChangeHours = (value) => {
+    const isChecked = checkedItemsHours.includes(value);
+    if (isChecked) {
+      setCheckedItemsHours(checkedItemsHours.filter((item) => item !== value));
+    } else {
+      setCheckedItemsHours([...checkedItemsHours, value]);
+    }
+  };
+
+  const handleCheckboxChangeDays = (value) => {
+    const isChecked = checkedItemsDays.includes(value);
+    if (isChecked) {
+      setCheckedItemsDays(checkedItemsDays.filter((item) => item !== value));
+    } else {
+      setCheckedItemsDays([...checkedItemsDays, value]);
+    }
   };
 
   return (
@@ -82,47 +95,60 @@ export function Collection3({route}) {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold', fontSize: 20 }}>Dias para a coleta</Text>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.label2}>Escolha um horário:</Text>
-          <RNPickerSelect
-            placeholder={{ label: 'Selecione um horário', value: null }}
-            items={hours}
-            onValueChange={handleHourChange}
-            value={selectedHour}
-            style={pickerSelectStyles}
-          />
-          <Text style={styles.selectedHour}>
-            Horário selecionado: {selectedHour || 'Nenhum horário selecionado'}
-          </Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontSize: 15 }}>Melhores dias</Text>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.label2}>Escolha um dia:</Text>
-          <RNPickerSelect
-            placeholder={{ label: 'Selecione um dia', value: null }}
-            items={days}
-            onValueChange={handleDayChange}
-            value={selectedDay}
-            style={pickerSelectStyles}
-          />
-          <Text style={styles.selectedHour}>
-            Dia selecionado: {selectedDay || 'Nenhum dia selecionado'}
-          </Text>
+        {days.map((item) => (
+          <View
+            key={item.value}
+            style={{ flexDirection: 'row', alignItems: 'center' }}
+          >
+            <Checkbox
+              value={checkedItemsDays.includes(item.value)}
+              onValueChange={() => handleCheckboxChangeDays(item.value)}
+              status={checkedItemsDays.includes(item.value) ? 'checked' : 'unchecked'}
+              onPress={()=>handleCheckboxChangeDays(item.value)}
+              color={'green'}
+              uncheckColor={'red'}
+            />
+            <Text
+              style={{
+                marginLeft: 8,
+                color: checkedItemsDays.includes(item.value) ? 'green' : 'black',
+                fontWeight: checkedItemsDays.includes(item.value) ? 'bold' : 'normal',
+              }}
+            >
+              {item.label}
+            </Text>
+          </View>
+        ))}
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontSize: 15 }}>Melhores horários</Text>
         </View>
-        {/* <View style={styles.containerEdit}>
-        {days.map((index) => {
-            return (
-              <View style={styles.containerEdit}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Checkbox
-                    onPress={()=>setSelectedMoreOneDay()}
-                    color={'green'}
-                    uncheckColor={'red'}
-                />
-                </View>
-              </View>
-            );
-          })}
-        </View> */}
+          {hours.map((item) => (
+          <View
+            key={item.value}
+            style={{ flexDirection: 'row', alignItems: 'center' }}
+          >
+            <Checkbox
+              value={checkedItemsHours.includes(item.value)}
+              onValueChange={() => handleCheckboxChangeHours(item.value)}
+              status={checkedItemsHours.includes(item.value) ? 'checked' : 'unchecked'}
+              onPress={()=>handleCheckboxChangeHours(item.value)}
+              color={'green'}
+              uncheckColor={'red'}
+            />
+            <Text
+              style={{
+                marginLeft: 8,
+                color: checkedItemsHours.includes(item.value) ? 'green' : 'black',
+                fontWeight: checkedItemsHours.includes(item.value) ? 'bold' : 'normal',
+              }}
+            >
+              {item.label}
+            </Text>
+          </View>
+        ))}
         <SizedBox vertical={30} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={nextPage}>

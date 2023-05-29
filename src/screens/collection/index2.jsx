@@ -57,7 +57,7 @@ export function Collection2({ route }) {
           style={styles.input}
           value={peso}
           onChangeText={setPeso2}
-          placeholder="Peso estimado"
+          placeholder="Peso estimado em KG, exemplo 4Kg"
           placeholderTextColor="#ccc"
         />        
         <SizedBox vertical={30} />

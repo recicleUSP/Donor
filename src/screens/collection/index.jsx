@@ -14,8 +14,9 @@ import { AddressCard2 } from "../address/components/card";
 export function Collection({router}) {
   const navigation = useNavigation();
   const [checkString, setCheckedString] = useState([]);
-  const [checkTipo, setCheckedTipo] = useState(null);
+  // const [checkTipo, setCheckedTipo] = useState(null);
   const {donorState, donorDispach} = useContext(DonorContext)
+  const [checkedItems, setCheckedItems] = useState([]);
 
   const itens = [
     { label: 'Plástico', value: 'Plástico' },
@@ -26,9 +27,9 @@ export function Collection({router}) {
     { label: 'Vidro', value: 'Vidro' },
   ];
 
-  const handleTipoChange = (value) => {
-    setCheckedTipo(value);
-  };
+  // const handleTipoChange = (value) => {
+  //   setCheckedTipo(value);
+  // };
 
   const checkBoxString = (value) => {
     if(checkString.includes(value)){
@@ -69,7 +70,16 @@ export function Collection({router}) {
 
   const nextPage = () => {
     console.log('Navegando para a Página 2');
-    navigation.navigate('Collection2', { tipo: checkTipo, endereco: checkString});
+    navigation.navigate('Collection2', { tipo: checkedItems, endereco: checkString});
+  };
+
+  const handleCheckboxChange = (value) => {
+    const isChecked = checkedItems.includes(value);
+    if (isChecked) {
+      setCheckedItems(checkedItems.filter((item) => item !== value));
+    } else {
+      setCheckedItems([...checkedItems, value]);
+    }
   };
 
   return (
@@ -102,19 +112,32 @@ export function Collection({router}) {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Tipo de material</Text>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.label2}>Escolha um Material:</Text>
-          <RNPickerSelect
-            placeholder={{ label: 'Selecione um material', value: null }}
-            items={itens}
-            onValueChange={handleTipoChange}
-            value={checkTipo}
-            style={pickerSelectStyles}
+        <View>
+      {itens.map((item) => (
+        <View
+          key={item.value}
+          style={{ flexDirection: 'row', alignItems: 'center' }}
+        >
+          <Checkbox
+            value={checkedItems.includes(item.value)}
+            onValueChange={() => handleCheckboxChange(item.value)}
+            status={checkedItems.includes(item.value) ? 'checked' : 'unchecked'}
+            onPress={()=>handleCheckboxChange(item.value)}
+            color={'green'}
+            uncheckColor={'red'}
           />
-          <Text style={styles.selectedHour}>
-            Material selecionado: {checkTipo || 'Nenhum material selecionado'}
+          <Text
+            style={{
+              marginLeft: 8,
+              color: checkedItems.includes(item.value) ? 'green' : 'black',
+              fontWeight: checkedItems.includes(item.value) ? 'bold' : 'normal',
+            }}
+          >
+            {item.label}
           </Text>
         </View>
+      ))}
+    </View>
         <SizedBox vertical={30} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={nextPage}>
