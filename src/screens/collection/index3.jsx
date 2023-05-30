@@ -42,19 +42,11 @@ export function Collection3({route}) {
     { label: 'domingo', value: 'domingo' },
   ];
 
-  const handleHourChange = (value) => {
-    setSelectedHour(value);
-  };
-
-  const handleDayChange = (value) => {
-    setSelectedDay(value);
-  };
-
   const { tipo, endereco, caixas, sacolas, peso } = route.params;
 
   const nextPage = () => {
     console.log('Navegando para a Página 4');
-    navigation.navigate('Collection4', { tipo, endereco, caixas, sacolas, peso, setCheckedItemsDays, setCheckedItemsHours, observacao});
+    navigation.navigate('Collection4', { tipo, endereco, caixas, sacolas, peso, dia: checkedItemsDays, hora: checkedItemsHours, observacao});
   };
 
   const handleCheckboxChangeHours = (value) => {
