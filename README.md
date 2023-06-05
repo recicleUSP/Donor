@@ -124,4 +124,4 @@ Essa organização de pastas promove uma separação clara de responsabilidades,
 # Autores
 
  - Gabriel Rosa
- - Leonrado Capos
+ - Leonardo Campos
