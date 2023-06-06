@@ -18,18 +18,17 @@ export function Collection3({route}) {
   const [checkedItemsDays, setCheckedItemsDays] = useState([]);
 
   const hours = [
-    { label: '7:00', value: '7' },
-    { label: '8:00', value: '8' },
-    { label: '9:00', value: '9' },
-    { label: '10:00', value: '10' },
-    { label: '11:00', value: '11' },
-    { label: '12:00', value: '12' },
-    { label: '13:00', value: '13' },
-    { label: '14:00', value: '14' },
-    { label: '15:00', value: '15' },
-    { label: '16:00', value: '16' },
-    { label: '17:00', value: '17' },
-    { label: '18:00', value: '18' },
+    { label: '7:00 - 8:00', value: '7-8' },
+    { label: '8:00 - 9:00', value: '8-9' },
+    { label: '9:00 - 10:00 ', value: '9-10' },
+    { label: '10:00 - 11:00', value: '10-11' },
+    { label: '11:00 - 12:00', value: '11-12' },
+    { label: '12:00 - 13:00', value: '12-13' },
+    { label: '13:00 - 14:00', value: '13-14' },
+    { label: '14:00 - 15:00', value: '14-15' },
+    { label: '15:00 - 16:00', value: '15-16' },
+    { label: '16:00 - 17:00', value: '16-17' },
+    { label: '17:00 - 18:00', value: '17-18' },
   ];
 
   const days = [
