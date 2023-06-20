@@ -47,7 +47,7 @@ export function Profile() {
       ? {uri: donorState.photoUrl} 
       : basedImage);
   },[donorState.photoUrl]);
-  
+   
   // Image Profile functions
   async function changeProfileImage(){
     let result = await ImagePicker.launchImageLibraryAsync({
