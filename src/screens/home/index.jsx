@@ -191,6 +191,11 @@ export function Home({}) {
         <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Collection')}>
           <Text style={styles.text }>Cadastrar</Text>
         </TouchableOpacity>
+        <View style={styles.container}>
+          <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Chat')}>
+            <Text style={styles.buttonText}>chat/teste</Text>
+          </TouchableOpacity>
+        </View>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>

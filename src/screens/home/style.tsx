@@ -73,4 +73,23 @@ export const styles = StyleSheet.create({
       alignItems: "center",
       marginTop:17
     },
+    containerFlutuante: {
+      position: 'absolute',
+      bottom: 16,
+      right: 16,
+    },
+    buttonFlutuante: {
+      backgroundColor: '#10b981',
+      width: 56,
+      height: 56,
+      borderRadius: 28,
+      justifyContent: 'center',
+      alignItems: 'center',
+      elevation: 4,
+    },
+    buttonTextFlutuante: {
+      color: 'white',
+      fontSize: 24,
+      fontWeight: 'bold',
+    },
   });

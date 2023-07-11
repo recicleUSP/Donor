@@ -16,7 +16,6 @@ import { StackCollection } from "./stack.routes";
 
 function TabsRoutes() {
   return (
-
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
@@ -41,10 +40,6 @@ function TabsRoutes() {
           tabBarIcon: ({ color }) => (<SimpleIcon name="account" color={color} size={Size28} />),
         }}
       />
-      {/* <Tab.Screen 
-        name="Collection" 
-        component={Collection} 
-      /> */}
       <Tab.Screen 
         name="Advice" 
         component={Advice} 
@@ -73,6 +68,4 @@ function TabsRoutes() {
   );
 }
 
-
 export {TabsRoutes};
-

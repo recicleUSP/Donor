@@ -41,7 +41,7 @@ export function Collection({router}) {
       }
     } else{setCheckedString([...checkString,value])}
   }
-
+ 
   const checkBoxTipo = (itens) => {
     if(checkTipo.includes(itens)){
       const index = checkTipo.indexOf(itens);

@@ -7,19 +7,11 @@ import { Collection } from '../screens/collection';
 import { Collection2 } from '../screens/collection/index2';
 import { Collection3 } from '../screens/collection/index3';
 import { Collection4 } from '../screens/collection/index4';
+import { ChatScreen } from '../screens/chat';
 
 const Stack = createNativeStackNavigator();
 
 function StackCollection() {
-  // const handleGoBack = ({ navigation }) => {
-  //   navigation.goBack();
-  // };
-
-  // const headerLeftComponent = ({ navigation }) => (
-  //   <TouchableOpacity onPress={() => handleGoBack({ navigation })}>
-  //     <Image source={require('path/to/your/back-icon.png')} />
-  //   </TouchableOpacity>
-  // );
   return (
     <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen 
@@ -45,6 +37,11 @@ function StackCollection() {
         <Stack.Screen 
           name="Collection4" 
           component={Collection4} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Chat" 
+          component={ChatScreen} 
           options={{ headerShown: false }}
         />
     </Stack.Navigator>
