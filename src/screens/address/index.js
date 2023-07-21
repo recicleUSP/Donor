@@ -11,10 +11,12 @@ import { DonorContext } from "../../contexts/donor/context";
 import { useEffect, useState, useContext } from "react";
 import { Loading } from "../../components/loading";
 import { Error } from "../../components/error";
-import { UPDATEADDRESS, UPDATE } from "../../contexts/donor/types"
+import { UPDATEADDRESS, UPDATE } from "../../contexts/donor/types";
+import { ADDRESS_GEO_KEY } from "../../constants/addressGeo";
 
 
 export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
+
     //const {data, dispach}                   = useContext(DonorContext);
 
     const [title, setTitle]                 = useState("");
@@ -25,6 +27,9 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
     const [state, setState]                 = useState("");
     const [neighborhood, setNeighborhood]   = useState("");
     const [complement, setComplement]       = useState("");
+
+    let latitud = '';
+    let longitud = '';
 
     const [head, setHead]                   = useState("Cadastro de Endereço")
     const [error, setError]                 = useState(false);
@@ -51,7 +56,7 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
         }
     },[]);
 
-    function validation(){
+    async function validation(){
         let res = true;
         const phase = "Campo Obrigatório"
 
@@ -62,11 +67,13 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
         if(city   == ''){setCityErr(phase); res = false;}
         if(cepValidation(cep)) {setCepErr("Cep inválido"); res = false;}
 
+        res = res && await getGeoLocation();
         return res;
     }
 
-    function confimPressed(){
-        if(validation()){
+    async function confimPressed(){
+        setLoandding(true);
+        if(await validation()){
             let address = data.address;
 
             const newAddress = {
@@ -77,8 +84,11 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
                 'state' : state.trim(), 
                 'city' : city.trim(),
                 'neighborhood': neighborhood.trim(),
-                'complement' : complement.trim()
+                'complement' : complement.trim(),
+                'latitude' : latitud.trim(),
+                'longitude' : longitud.trim()
             }
+
             if(idx >= 0){
                 address[idx] = newAddress
             }else{
@@ -89,6 +99,7 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
             dispach({type: UPDATE, data: {...data, 'address':address}, dispatch: dispach, cb:updateCB});
             closeFunc();
         }
+        setLoandding(false);
     }
     function updateCB(status, err){
         if(status){setError(err)};  
@@ -99,7 +110,6 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
         return `https://viacep.com.br/ws/${nCep}/json/`;
     }
     function getCepInf(){
-        apiCep();
         fetch(apiCep())
             .then((responseObj) => {
             responseObj.json()
@@ -114,10 +124,38 @@ export const RegisterAddress = ({data, dispach, closeFunc, idx = -1}) => {
         });
     }
 
+    function apiGeoLocation(){
+        const nCep = cep.replace(/[^0-9]/gi, "");
+        const address = `${street},${num},${neighborhood},${city},${state},${nCep}`;
+        
+        return `https://dev.virtualearth.net/REST/v1/Locations?q=${address}&output=json&key=${ADDRESS_GEO_KEY}`;
+        //return `https://platform.bing.com/geo/spatial/v1/public/Geodata?SpatialFilter=GetBoundary('${address}',1,'CountryRegion',1,1,'pt','br')&$format=json&key=${ADDRESS_GEO_KEY}`;
+    }
+    async function getGeoLocation(){
+        try{
+            let responseObj = await fetch(apiGeoLocation());
+            let data = await responseObj.json();
+            if(!data.erro){
+                // console.log("Geolocation Data: ",data);
+                // console.log("Geolocation Results: ",data["resourceSets"][0]["resources"][0]["point"]["coordinates"]);
+                const geoLoc = data["resourceSets"][0]["resources"][0]["point"]["coordinates"];
+                latitud =`${geoLoc[0]}`;
+                longitud = `${geoLoc[1]}`;
+                return true;
+            }
+            setError("Erro ao buscar Geolocalização. Endereço não encontrado, verifique os dados digitados e tente novamente.");
+            return false;
+        }catch(err){
+            //console.log("Erro Geolocation: ",err);
+            setError(err)
+            return false;
+        }
+    }
+
     return(
         <View style={Style.default}>
-            {error && <Error error={error} closeFunc={()=>setError(false)}/>}
             {loandding && <Loading/>}
+            {error && <Error error={error} closeFunc={()=>setError(false)}/>}
 
             <TouchableOpacity style={{...Style.default, ...Style.container}} onPress={closeFunc}></TouchableOpacity>
             <View style={Style.subcontainer}>
