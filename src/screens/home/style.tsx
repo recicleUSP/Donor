@@ -1,11 +1,19 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { Width, Height, Size20, FontBold, FontRegular } from "../../constants/scales";
+import { Width } from "../../constants/scales";
 import { Colors, Theme } from "../../constants/setting";
 
 const { width } = Dimensions.get('window');
 const buttonWidth = width * 0.8;
 
 export const styles = StyleSheet.create({
+    circularButtonContainer: {
+      backgroundColor: '#10b981', // Altere aqui para a cor verde desejada
+      borderRadius: 80, // Usar um valor grande para criar um círculo perfeito
+      width: 80,
+      height: 80,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     card:{  
       alignSelf:"center",
       alignContent: "center",
@@ -91,5 +99,14 @@ export const styles = StyleSheet.create({
       color: 'white',
       fontSize: 24,
       fontWeight: 'bold',
+    },
+    button2: {
+      backgroundColor: '#10b981',
+      borderRadius: 20,
+      paddingVertical: 16,
+      paddingHorizontal: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '50%',
     },
   });

@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colors, Theme } from "../../../constants/setting";
 import { Width, Height, Size20, Size50, FontBold, FontRegular } from "../../../constants/scales";
 import { ButtonIcon } from "../../../components/buttons";
 import { TextIcon, TextSimple } from "../../../components/texts";
 import { ImageCircleDefault } from "../../../components/images";
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-// import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const AddressCard = ({address, editFn, removeFn}) => {
 
@@ -158,6 +157,14 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
           {"Status: Em andamento"}.
         </TextIcon>
         </View>
+        <View style={Style.containerButtonClearandEdit}>
+        <TouchableOpacity style={[Style.buttonGreen, Style.greenButton]}>
+          <Text style={Style.buttonText}>Editar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[Style.buttonRed, Style.redButton]}>
+          <Text style={Style.buttonText}>Excluir</Text>
+        </TouchableOpacity>
+      </View>
       </View>
 
     );
@@ -198,5 +205,43 @@ const Style = StyleSheet.create({
         backgroundColor: Colors[Theme][1],
         //alignItems:"center",
         marginBottom: 15
+    },
+
+    containerButtonClearandEdit: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row', // Para alinhar os botões lado a lado
+    },
+    button2: {
+      padding: 15,
+      borderRadius: 8,
+      marginBottom: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 150,
+    },
+    buttonText: {
+      color: '#FFFFFF',
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    buttonGreen: {
+      backgroundColor: '#10b981',
+      borderRadius: 20,
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '28%',
+    },
+    buttonRed: {
+      backgroundColor: '#FF3E3E',
+      borderRadius: 20,
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '35%',
     },
 })

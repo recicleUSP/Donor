@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import { TextInput ,Text, View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { styles } from "./style";
 import { ScrollView } from "react-native-gesture-handler";
 import { ContainerTop, ContainerTopRegister4 } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
 import { SizedBox } from 'sizedbox';
-import { setDoc, getDoc, collection , addDoc, getFirestore, firebaseApp } from "firebase/firestore";
+import { collection , addDoc, getFirestore, firebaseApp } from "firebase/firestore";
 
 export function Collection4({route}) {
   const firestore = getFirestore(firebaseApp);

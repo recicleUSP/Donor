@@ -188,11 +188,11 @@ export function Home({}) {
             <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>{quantidadeTarefas+" Coletas Concluídas"}</Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Collection')}>
+        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate('Collection')}>
           <Text style={styles.text }>Cadastrar</Text>
         </TouchableOpacity>
         <View style={styles.container}>
-          <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Chat')}>
+          <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate('Chat')}>
             <Text style={styles.text }>Chat</Text>
           </TouchableOpacity>
         </View>
