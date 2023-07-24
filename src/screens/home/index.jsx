@@ -193,7 +193,7 @@ export function Home({}) {
         </TouchableOpacity>
         <View style={styles.container}>
           <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Chat')}>
-            <Text style={styles.buttonText}>chat/teste</Text>
+            <Text style={styles.text }>Chat</Text>
           </TouchableOpacity>
         </View>
             </View>
