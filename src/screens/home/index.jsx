@@ -2,7 +2,8 @@ import { View, ScrollView, Button, Text, Center, Icon, TouchableOpacity, Alert }
 import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
-import { useContext } from "react";import messaging from '@react-native-firebase/messaging';
+import { useContext } from "react";
+import messaging from '@react-native-firebase/messaging';
 async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
   const enabled =
@@ -191,11 +192,6 @@ export function Home({}) {
         <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate('Collection')}>
           <Text style={styles.text }>Cadastrar</Text>
         </TouchableOpacity>
-        <View style={styles.container}>
-          <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate('Chat')}>
-            <Text style={styles.text }>Chat</Text>
-          </TouchableOpacity>
-        </View>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>

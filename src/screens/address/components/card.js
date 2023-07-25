@@ -5,6 +5,7 @@ import { ButtonIcon } from "../../../components/buttons";
 import { TextIcon, TextSimple } from "../../../components/texts";
 import { ImageCircleDefault } from "../../../components/images";
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 export const AddressCard = ({address, editFn, removeFn}) => {
 
@@ -99,6 +100,7 @@ export const AddressCard2 = ({address, editFn, removeFn}) => {
 }
 
 export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sacolas }) => {
+  const navigation = useNavigation();
     return (
       <View style={Style.container}>
         <View style={Style.row}>
@@ -129,16 +131,6 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
           {sacolas}.
         </TextIcon>
         </View>
-        <View style={Style.row2}> 
-        <FontAwesomeIcon name="balance-scale" size={15} color="black" />
-        <TextIcon
-          color={Colors[Theme][4]}
-          size={Size20 * 0.8}
-          space={15}
-        >
-          {peso}.
-        </TextIcon>
-        </View>
         <TextIcon
           icon={"home"}
           color={Colors[Theme][4]}
@@ -157,14 +149,11 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
           {"Status: Em andamento"}.
         </TextIcon>
         </View>
-        <View style={Style.containerButtonClearandEdit}>
-        <TouchableOpacity style={[Style.buttonGreen, Style.greenButton]}>
-          <Text style={Style.buttonText}>Editar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[Style.buttonRed, Style.redButton]}>
-          <Text style={Style.buttonText}>Excluir</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={Style.buttonGreen}>
+          <TouchableOpacity style={Style.button2} onPress={()=>navigation.navigate('Chat')}>
+            <Text style={Style.text }>Chat</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
     );
@@ -229,11 +218,11 @@ const Style = StyleSheet.create({
     buttonGreen: {
       backgroundColor: '#10b981',
       borderRadius: 20,
-      paddingVertical: 10,
+      paddingVertical: 0.10,
       paddingHorizontal: 16,
       justifyContent: 'center',
       alignItems: 'center',
-      width: '28%',
+      width: '30%',
     },
     buttonRed: {
       backgroundColor: '#FF3E3E',

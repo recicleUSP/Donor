@@ -6,12 +6,9 @@ import { ContainerTop, ContainerTopRegister3 } from "../../components/containers
 import { Colors,Theme } from "../../constants/setting";
 import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
-import { DonorContext } from "../../contexts/donor/context";
-import RNPickerSelect from 'react-native-picker-select';
 import { Checkbox } from "react-native-paper";
 
 export function Collection3({route}) {
-  const {donorState, donorDispach} = useContext(DonorContext)
   const navigation = useNavigation();
   const [observacao, setObservacao2] = useState();
   const [checkedItemsHours, setCheckedItemsHours] = useState([]);

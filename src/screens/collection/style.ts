@@ -6,6 +6,15 @@ const { width } = Dimensions.get('window');
 const buttonWidth = width * 0.8;
 
 export const styles = StyleSheet.create({
+  button2: {
+    backgroundColor: '#10b981',
+    borderRadius: 20,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+  },
   containerEdit: {
     alignSelf:"center",
     alignContent: "center",

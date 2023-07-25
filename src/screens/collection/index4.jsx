@@ -5,17 +5,40 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ContainerTop, ContainerTopRegister4 } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
 import { SizedBox } from 'sizedbox';
-import { collection , addDoc, getFirestore, firebaseApp } from "firebase/firestore";
+import { firebaseApp } from "firebase/firestore";
+import { getDatabase, push, ref } from "firebase/database";
+import { DonorContext } from "../../contexts/donor/context";
+import { useContext } from "react";
 
 export function Collection4({route}) {
-  const firestore = getFirestore(firebaseApp);
+  const {donorState, donorDispach} = useContext(DonorContext)
+  const basedImage = require("../../../assets/images/profile.webp");
   const navigation = useNavigation();
+  const database = getDatabase(firebaseApp);
 
-  const { tipo, endereco, caixas, sacolas, peso, dia, hora, observacao  } = route.params;
+  const user = {
+    id: donorState.uid,
+    name: donorState.name,
+    photo: basedImage,
+  };
 
-  async function addNewDocument(tipo, caixas, dia, hora, endereco, observacao, peso, sacolas) {
+  const coletor = {
+    id: "none",
+    name: "none",
+    photo: "none",
+  };
+
+  const { tipo, endereco, caixas, sacolas, peso, dia, hora, observacao } = route.params;
+
+  async function addNewDocument(tipo, caixas, dia, hora, endereco, observacao, peso, sacolas, user, coletor) {
     try {
-      const newDocRef = await addDoc(collection(firestore, 'recycling'), {
+      const userData = {
+        id: user?.id || "none",
+        name: user?.name || "none",
+        photo: user?.photo || "none",
+      };
+  
+      const newDocRef = await push(ref(database, 'recyclable'), {
         tipo: tipo,
         caixas: caixas,
         hora: hora,
@@ -24,45 +47,35 @@ export function Collection4({route}) {
         observacao: observacao,
         peso: peso,
         sacolas: sacolas,
+        user: userData,
+        status: "pending",
+        collector: coletor,
       });
-      console.log('Documento adicionado com ID:', newDocRef.id);
-      navigation.navigate('Home')
+  
+      console.log('Documento adicionado com ID:', newDocRef.key);
+      navigation.navigate('Home');
     } catch (error) {
       console.error('Erro ao adicionar documento:', error);
     }
   }
 
   return (
-      <ScrollView>
-        <ContainerTop/>     
-        <ContainerTopRegister4/>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold', fontSize: 20 }}>Resumo da Coleta</Text>
-        </View>   
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Material: {tipo}</Text>
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Quantidade: {caixas}caixas e {sacolas}sacolas</Text>
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Endereço: {endereco}</Text>
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Coletas: dia {dia} e hora {hora}</Text>
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-              <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 15, fontSize: 15 }}>Observação: {observacao}</Text>
-        </View>
+    <ScrollView>
+      <ContainerTop />
+      <ContainerTopRegister4 />
+      <View style={styles.container}>
+        <Text style={styles.titleText}>Resumo da Coleta</Text>
+        <Text style={styles.labelText}>Material: {tipo}</Text>
+        <Text style={styles.labelText}>Quantidade: {caixas} caixas e {sacolas} sacolas</Text>
+        <Text style={styles.labelText}>Endereço: {endereco}</Text>
+        <Text style={styles.labelText}>Coletas: dia {dia} e hora {hora}</Text>
+        <Text style={styles.labelText}>Observação: {observacao}</Text>
         <SizedBox vertical={30} />
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity style={styles.button} onPress={
-          ()=>addNewDocument(tipo, caixas, dia, hora, endereco, observacao, peso, sacolas)
-          }>
-          <Text style={styles.text }>Cadastrar</Text>
+        <TouchableOpacity style={styles.button2} onPress={() => addNewDocument(tipo, caixas, dia, hora, endereco, observacao, peso, sacolas, user, coletor)}>
+          <Text style={styles.buttonText}>Cadastrar</Text>
         </TouchableOpacity>
-            </View>
-            <SizedBox vertical={30} /> 
-      </ScrollView>
+        <SizedBox vertical={30} />
+      </View>
+    </ScrollView>
   );
 }
