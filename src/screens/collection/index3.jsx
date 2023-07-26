@@ -13,6 +13,8 @@ export function Collection3({route}) {
   const [observacao, setObservacao2] = useState();
   const [checkedItemsHours, setCheckedItemsHours] = useState([]);
   const [checkedItemsDays, setCheckedItemsDays] = useState([]);
+  const hoursString = checkedItemsHours.join(", ");
+  const daysString = checkedItemsDays.join(", ");
 
   const hours = [
     { label: '7:00 - 8:00', value: '7-8' },
@@ -42,7 +44,7 @@ export function Collection3({route}) {
 
   const nextPage = () => {
     console.log('Navegando para a Página 4');
-    navigation.navigate('Collection4', { tipo, endereco, caixas, sacolas, peso, dia: checkedItemsDays, hora: checkedItemsHours, observacao});
+    navigation.navigate('Collection4', { tipo, endereco, caixas, sacolas, peso, dia: daysString, hora: hoursString, observacao});
   };
 
   const handleCheckboxChangeHours = (value) => {

@@ -54,6 +54,9 @@ export const styles = StyleSheet.create({
       borderRadius: 8,
       width: buttonWidth,
       alignSelf: 'center',
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
     },
     text: {
       color: 'white',

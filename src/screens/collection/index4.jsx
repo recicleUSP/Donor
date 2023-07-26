@@ -29,6 +29,19 @@ export function Collection4({route}) {
   };
 
   const { tipo, endereco, caixas, sacolas, peso, dia, hora, observacao } = route.params;
+  const addressArray = endereco.split(", ");
+
+  const addressObj = {
+    name: addressArray[0],
+    street: addressArray[1],
+    neighborhood: addressArray[2],
+    city: addressArray[3],
+    reference: addressArray[4],
+    number: parseInt(addressArray[5]),
+    cep: addressArray[6],
+    latitude: parseFloat(addressArray[7]),
+    longitude: parseFloat(addressArray[8]),
+  };
 
   async function addNewDocument(tipo, caixas, dia, hora, endereco, observacao, peso, sacolas, user, coletor) {
     try {
@@ -39,15 +52,15 @@ export function Collection4({route}) {
       };
   
       const newDocRef = await push(ref(database, 'recyclable'), {
-        tipo: tipo,
-        caixas: caixas,
-        hora: hora,
-        dia: dia,
-        endereco: endereco,
-        observacao: observacao,
-        peso: peso,
-        sacolas: sacolas,
-        user: userData,
+        type: tipo,
+        boxes: caixas,
+        hour: hora,
+        day: dia,
+        address: addressObj,
+        observation: observacao,
+        weight: peso,
+        bags: sacolas,
+        donor: userData,
         status: "pending",
         collector: coletor,
       });

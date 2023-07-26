@@ -2,7 +2,7 @@ import { View, ScrollView, Button, Text, Center, Icon, TouchableOpacity, Alert }
 import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import messaging from '@react-native-firebase/messaging';
 async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -18,14 +18,16 @@ import { SizedBox } from 'sizedbox';
 import { DonorContext } from "../../contexts/donor/context";
 import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
-import {useState, useEffect} from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { setDoc, getDoc, collection, onSnapshot, addDoc, getFirestore, firebaseApp, Firestore } from "firebase/firestore";
 import { CardHome } from "../address/components/card";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+// import { getDatabase, ref, forEach, onValue, off, firebaseApp } from "firebase/database";
 
 export function Home({}) {
   const navigation = useNavigation();
   const firestore = getFirestore(firebaseApp);
+  // const RealTime = getDatabase(firebaseApp);
   const {donorState, donorDispach} = useContext(DonorContext)
   const basedImage                       = require("../../../assets/images/profile.webp");
   const [image, setImage]                = useState(basedImage);
@@ -37,6 +39,32 @@ export function Home({}) {
     const tokens = String(string).replace(/([a-z])([A-Z])/g, '$1,$2').split(',');
     return tokens;
   }
+
+  // useEffect(() => {
+  //   const refe = RealTime.ref("recycling");
+  //   const onValueChange = (snapshot) => {
+  //     const tarefas = [];
+  //     snapshot.forEach((childSnapshot) => {
+  //       const data = childSnapshot.val();
+  //       tarefas.push({
+  //         id: childSnapshot.key,
+  //         tipo: tokenizeString(data.tipo), 
+  //         caixas: data.caixas,
+  //         coleta: data.coleta,
+  //         endereco: data.endereco,
+  //         observacao: data.observacao,
+  //         peso: data.data,
+  //         sacolas: data.sacolas,
+  //       });
+  //     });
+  //     setTarefas(tarefas);
+  //   };
+
+  //   refe.on("value", onValueChange);
+  //   return () => {
+  //     refe.off("value", onValueChange);
+  //   };
+  // }, []);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(firestore, 'recycling'), (querySnapshot) => {
@@ -189,8 +217,9 @@ export function Home({}) {
             <Text style={{ color: Colors[Theme][2], textAlign: 'right', padding: 20, fontWeight: 'bold' }}>{quantidadeTarefas+" Coletas Concluídas"}</Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate('Collection')}>
-          <Text style={styles.text }>Cadastrar</Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Collection')}>
+          <MaterialCommunityIcons name="chat" size={28} color="white" />
+          <Text style={styles.text}>Cadastrar</Text>
         </TouchableOpacity>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
