@@ -38,7 +38,7 @@ export function Collection({ route }) {
   const nextPage = () => {
     const addressString = checkString.map((addressTitle) => {
       const address = donorState.address.find((item) => item.title === addressTitle);
-      return `${address.title}, ${address.street}, ${address.neighborhood}, ${address.city}, ${address.reference}, ${address.num}, ${address.cep}, ${address.latitude}, ${address.longitude}`;
+      return `${address.title}, ${address.street}, ${address.neighborhood}, ${address.city}, ${address.reference}, ${address.num}, ${address.cep}, ${address.latitude}, ${address.longitude}, ${address.state}`;
     }).join(";");
 
     navigation.navigate('Collection2', { tipo: tipos, endereco: addressString });

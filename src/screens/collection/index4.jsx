@@ -25,7 +25,7 @@ export function Collection4({route}) {
   const coletor = {
     id: "none",
     name: "none",
-    photo: "none",
+    photoUrl: "none",
   };
 
   const { tipo, endereco, caixas, sacolas, peso, dia, hora, observacao } = route.params;
@@ -37,29 +37,30 @@ export function Collection4({route}) {
     neighborhood: addressArray[2],
     city: addressArray[3],
     reference: addressArray[4],
-    number: parseInt(addressArray[5]),
+    num: parseInt(addressArray[5]),
     cep: addressArray[6],
     latitude: parseFloat(addressArray[7]),
     longitude: parseFloat(addressArray[8]),
+    state: addressArray[9],
   };
 
   async function addNewDocument(tipo, caixas, dia, hora, endereco, observacao, peso, sacolas, user, coletor) {
     try {
       const userData = {
-        id: user?.id || "none",
+        id: user?.uid || "none",
         name: user?.name || "none",
-        photo: user?.photo || "none",
+        photoUrl: user?.photoUrl || "none",
       };
   
       const newDocRef = await push(ref(database, 'recyclable'), {
-        type: tipo,
-        boxes: caixas,
-        hour: hora,
-        day: dia,
+        types: tipo,
+        boxes: parseInt(caixas),
+        times: hora,
+        weekDays: dia,
         address: addressObj,
         observation: observacao,
         weight: peso,
-        bags: sacolas,
+        bags: parseInt(sacolas),
         donor: userData,
         status: "pending",
         collector: coletor,
