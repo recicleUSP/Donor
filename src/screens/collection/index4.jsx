@@ -19,7 +19,7 @@ export function Collection4({route}) {
   const user = {
     id: donorState.uid,
     name: donorState.name,
-    photo: basedImage,
+    photoUrl: basedImage,
   };
 
   const coletor = {
