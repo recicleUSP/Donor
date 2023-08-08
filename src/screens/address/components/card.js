@@ -100,7 +100,7 @@ export const AddressCard2 = ({address, editFn, removeFn}) => {
     );
 }
 
-export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sacolas, user }) => {
+export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sacolas, user, foto, nome, id }) => {
   const navigation = useNavigation();
       return (
         <View style={Style.container}>
@@ -144,27 +144,16 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
                   {"Andamento"}.
               </TextIcon>
               <View style={Style.buttonGreey}>
-                <TouchableOpacity style={Style.button2} onPress={()=>navigation.navigate('Chat')}>
+              <TouchableOpacity style={Style.button2} onPress={() => navigation.navigate('Chat', { userId: id, userPhotoUrl: foto, userName: nome })}>
                   <MaterialCommunityIcons name="chat" size={25} color="white" />
                   <Text style={Style.text}>Chat</Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View>
-            <ImageCircleDefault
-             img={{ uri: 'https://www.florence.edu.br/wp-content/uploads/2022/08/Imagem-Materia_Dia-do-Cachorro-600x400.png' }}
-             size={Size50 * 1.5}
-           />
-           <Text>Gabriel Boquete</Text>
+           <Text>{nome}</Text>
             </View>
 
-          </View>
-          <View style={Style.row2}>
-            <MaterialCommunityIcons name="star" size={30} color='gold' />
-            <MaterialCommunityIcons name="star" size={30} color='gold' />
-            <MaterialCommunityIcons name="star" size={30} color='gold' />
-            <MaterialCommunityIcons name="star" size={30} color='#CCCCCC' />
-            <MaterialCommunityIcons name="star" size={30} color='#CCCCCC' />
           </View>
         </View>
     );

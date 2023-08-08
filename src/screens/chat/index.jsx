@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, TextInput, FlatList, TouchableOpacity, Text, Image } from 'react-native';
 import { collection, onSnapshot, addDoc, getFirestore, firebaseApp, Timestamp } from "firebase/firestore";
+import { DonorContext } from '../../contexts/donor/context';
 import { SizedBox } from 'sizedbox';
 import { styles } from "./style";
-import { DonorContext } from '../../contexts/donor/context';
+import { useNavigation } from "@react-navigation/native";
 
 const firestore = getFirestore(firebaseApp);
 
@@ -15,17 +16,20 @@ const formatTimestamp = (timestamp) => {
   return `${hours}:${minutes}`;
 };
 
-export function ChatScreen() {
+export function ChatScreen({ route }) {
   const { donorState, donorDispach } = useContext(DonorContext);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const navigation = useNavigation();
+
+  const { userId, userPhotoUrl, userName } = route.params;
 
   useEffect(() => {
     const messagesRef = collection(firestore, 'messages');
     const unsubscribe = onSnapshot(messagesRef, (snapshot) => {
       const messageList = snapshot.docs
         .map((doc) => ({ ...doc.data(), id: doc.id }))
-        .filter((message) => message.senderId === donorState.id || message.recipientId === donorState.id)
+        .filter((message) => (message.senderId === donorState.id && message.recipientId === userId) || (message.recipientId === donorState.id && message.senderId === userId) )
         .sort((a, b) => {
           if (a.timestamp && b.timestamp) {
             return a.timestamp.toMillis() - b.timestamp.toMillis();
@@ -52,7 +56,7 @@ export function ChatScreen() {
     const newMessage = {
       text: message,
       senderId: user,
-      recipientId: 'SkRfYjQdLsYhZydlXjXkKuKjzzm2',
+      recipientId: userId,
       timestamp: Timestamp.fromDate(new Date()), 
     };
 
@@ -79,6 +83,8 @@ export function ChatScreen() {
   return (
     <View style={styles.container}>
       <SizedBox vertical={20} />
+      <Image source={{ uri: userPhotoUrl }}/>
+      <Text>{userName}</Text>
       <FlatList
         data={messages}
         renderItem={renderMessage}
@@ -103,4 +109,3 @@ export function ChatScreen() {
 }
 
 export default ChatScreen;
-

@@ -8,7 +8,6 @@ import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
 import { Checkbox } from 'react-native-paper';
 import { DonorContext } from "../../contexts/donor/context";
-import RNPickerSelect from 'react-native-picker-select';
 import { AddressCard2 } from "../address/components/card";
 
 export function Collection({ route }) {

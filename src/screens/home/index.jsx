@@ -22,12 +22,11 @@ import { useNavigation } from '@react-navigation/native';
 import { setDoc, getDoc, collection, onSnapshot, addDoc, getFirestore, firebaseApp, Firestore } from "firebase/firestore";
 import { CardHome } from "../address/components/card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-// import { getDatabase, ref, forEach, onValue, off, firebaseApp } from "firebase/database";
+import { getDatabase, push, ref, get } from "firebase/database";
 
 export function Home({}) {
   const navigation = useNavigation();
   const firestore = getFirestore(firebaseApp);
-  // const RealTime = getDatabase(firebaseApp);
   const {donorState, donorDispach} = useContext(DonorContext)
   const basedImage                       = require("../../../assets/images/profile.webp");
   const [image, setImage]                = useState(basedImage);
@@ -40,99 +39,97 @@ export function Home({}) {
     return tokens;
   }
 
-  // useEffect(() => {
-  //   const refe = RealTime.ref("recycling");
-  //   const onValueChange = (snapshot) => {
-  //     const tarefas = [];
-  //     snapshot.forEach((childSnapshot) => {
-  //       const data = childSnapshot.val();
-  //       tarefas.push({
-  //         id: childSnapshot.key,
-  //         tipo: tokenizeString(data.tipo), 
-  //         caixas: data.caixas,
-  //         coleta: data.coleta,
-  //         endereco: data.endereco,
-  //         observacao: data.observacao,
-  //         peso: data.data,
-  //         sacolas: data.sacolas,
-  //       });
-  //     });
-  //     setTarefas(tarefas);
-  //   };
-
-  //   refe.on("value", onValueChange);
-  //   return () => {
-  //     refe.off("value", onValueChange);
-  //   };
-  // }, []);
+  const database = getDatabase(firebaseApp);
+  const [donorData, setdonorData] = useState([]);
+  const yourdonorId = donorState.id;
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(firestore, 'recycling'), (querySnapshot) => {
-      const tarefas = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        tarefas.push({
-          id: doc.id,
-          tipo: tokenizeString(data.tipo), // Tokenizar a string do tipo
-          caixas: data.caixas,
-          coleta: data.coleta,
-          endereco: data.endereco,
-          observacao: data.observacao,
-          peso: data.data,
-          sacolas: data.sacolas,
-        });
-      });
-      setTarefas(tarefas);
+    const infoRef = ref(database, 'recyclable/');
+  
+    get(infoRef).then(snapshot => {
+      const data = snapshot.val();
+      if (data) {
+        const donorArray = [];
+        for (const id in data) {
+          const donorInfo = data[id];
+          if (donorInfo && donorInfo.donor && donorInfo.donor.id === yourdonorId) {
+            const donor = donorInfo.donor;
+            const donorData = {
+              id: donor.id,
+              name: donor.name,
+              photoUrl: donor.photoUrl,
+              address: donorInfo.address,
+              bags: donorInfo.bags,
+              boxes: donorInfo.boxes,
+              donor: {
+                id: donorInfo.donor.id,
+                name: donorInfo.donor.name,
+                photoUrl: donorInfo.donor.photoUrl
+              },
+              observation: donorInfo.observation,
+              status: donorInfo.status,
+              times: donorInfo.times,
+              types: donorInfo.types,
+              weekDays: donorInfo.weekDays,
+              weight: donorInfo.weight
+            };
+            donorArray.push(donorData);
+          }
+        }
+        setdonorData(donorArray);
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao ler os dados:', error);
     });
-    return () => unsubscribe();
-  }, []);
+  }, [yourdonorId]);
 
-  const quantidadeTipoA = tarefas.filter((tarefa) => tarefa.tipo.includes('Plástico')).length;
-  const quantidadeTipoB = tarefas.filter((tarefa) => tarefa.tipo.includes('Metal')).length;
-  const quantidadeTipoC = tarefas.filter((tarefa) => tarefa.tipo.includes('Eletrônico')).length;
-  const quantidadeTipoD = tarefas.filter((tarefa) => tarefa.tipo.includes('Papel')).length;
-  const quantidadeTipoE = tarefas.filter((tarefa) => tarefa.tipo.includes('Óleo')).length;
-  const quantidadeTipoF = tarefas.filter((tarefa) => tarefa.tipo.includes('Vidro')).length;
+  const quantidadetypesA = donorData.filter((tarefa) => tarefa.types.includes('Plástico')).length;
+  const quantidadetypesB = donorData.filter((tarefa) => tarefa.types.includes('Metal')).length;
+  const quantidadetypesC = donorData.filter((tarefa) => tarefa.types.includes('Eletrônico')).length;
+  const quantidadetypesD = donorData.filter((tarefa) => tarefa.types.includes('Papel')).length;
+  const quantidadetypesE = donorData.filter((tarefa) => tarefa.types.includes('Óleo')).length;
+  const quantidadetypesF = donorData.filter((tarefa) => tarefa.types.includes('Vidro')).length;
 
   const data2 = [
     {
       name: 'Metal',
-      population: quantidadeTipoB,
+      population: quantidadetypesB,
       color: '#297AB1',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Plástico',
-      population: quantidadeTipoA,
+      population: quantidadetypesA,
       color: '#F5A623',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Eletrônico',
-      population: quantidadeTipoC,
+      population: quantidadetypesC,
       color: '#D33F49',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Óleo',
-      population: quantidadeTipoE,
+      population: quantidadetypesE,
       color: 'green',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Vidro',
-      population: quantidadeTipoF,
+      population: quantidadetypesF,
       color: 'pink',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Papel',
-      population: quantidadeTipoD,
+      population: quantidadetypesD,
       color: 'brown',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
@@ -226,10 +223,10 @@ export function Home({}) {
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
             <ScrollView horizontal>
-              {tarefas.map((index) => (
+            {donorData.map((index) => (
                 <View style={[styles.containerEdit, { marginRight: 50 }]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <CardHome tipo={index.tipo} endereco={index.endereco} peso={index.peso} sacolas={index.sacolas} caixas={index.caixas} key={index} />
+                    <CardHome tipo={index.type} endereco={index.address.name} peso={index.weight} sacolas={index.bags} caixas={index.boxes} foto={index.donor.photoUrl} nome={index.donor.name} id={index.donor.id} key={index} />
                   </View>
                 </View>
               ))}
