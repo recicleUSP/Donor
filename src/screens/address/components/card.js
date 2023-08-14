@@ -136,6 +136,14 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
                   {endereco}.
               </TextIcon>
               <TextIcon
+                  icon={"map-marker"}
+                  color={Colors[Theme][4]}
+                  size={Size20*0.8}
+                  space={15}
+              >
+                  {id}.
+              </TextIcon>
+              <TextIcon
                   icon={"check"}
                   color={Colors[Theme][4]}
                   size={Size20*0.8}

@@ -61,10 +61,10 @@ export function Home({}) {
               address: donorInfo.address,
               bags: donorInfo.bags,
               boxes: donorInfo.boxes,
-              donor: {
-                id: donorInfo.donor.id,
-                name: donorInfo.donor.name,
-                photoUrl: donorInfo.donor.photoUrl
+              collector: {
+                id: donorInfo.collector.id,
+                name: donorInfo.collector.name,
+                photoUrl: donorInfo.collector.photoUrl
               },
               observation: donorInfo.observation,
               status: donorInfo.status,
@@ -215,7 +215,7 @@ export function Home({}) {
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Collection')}>
-          <MaterialCommunityIcons name="chat" size={28} color="white" />
+          <MaterialCommunityIcons name="recycle" size={28} color="white" />
           <Text style={styles.text}>Cadastrar</Text>
         </TouchableOpacity>
             </View>
@@ -226,7 +226,7 @@ export function Home({}) {
             {donorData.map((index) => (
                 <View style={[styles.containerEdit, { marginRight: 50 }]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <CardHome tipo={index.type} endereco={index.address.name} peso={index.weight} sacolas={index.bags} caixas={index.boxes} foto={index.donor.photoUrl} nome={index.donor.name} id={index.donor.id} key={index} />
+                    <CardHome tipo={index.type} endereco={index.address.name} peso={index.weight} sacolas={index.bags} caixas={index.boxes} foto={index.collector.photoUrl} nome={index.collector.name} id={index.collector.id} key={index} />
                   </View>
                 </View>
               ))}

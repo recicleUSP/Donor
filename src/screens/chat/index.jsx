@@ -85,6 +85,7 @@ export function ChatScreen({ route }) {
       <SizedBox vertical={20} />
       <Image source={{ uri: userPhotoUrl }}/>
       <Text>{userName}</Text>
+      <Text>{userId}</Text>
       <FlatList
         data={messages}
         renderItem={renderMessage}
