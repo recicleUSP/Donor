@@ -111,7 +111,7 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
                     color={Colors[Theme][5]}
                     margin={0}
                     size={Size20*1.4}
-                    fun={"removeFn"}
+                    // fun={"removeFn"}
                     alignSelf="flex-start"
                 />
                 <Text style={Style.textTitle}>{tipo}</Text>
@@ -121,7 +121,7 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
                     color={Colors[Theme][5]}
                     margin={0}
                     size={Size20*1.2}
-                    fun={"editFn"}
+                    // fun={"editFn"}
                     alignSelf="flex-start"
                 />
             </View>
@@ -134,14 +134,6 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
                   space={15}
               >
                   {endereco}.
-              </TextIcon>
-              <TextIcon
-                  icon={"map-marker"}
-                  color={Colors[Theme][4]}
-                  size={Size20*0.8}
-                  space={15}
-              >
-                  {id}.
               </TextIcon>
               <TextIcon
                   icon={"check"}
@@ -158,10 +150,17 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
                 </TouchableOpacity>
               </View>
             </View>
-            <View>
-           <Text>{nome}</Text>
+            <View style={Style.row}>
+                <View style={Style.circularPhoto}>
+                <ImageCircleDefault
+                img={{ uri: foto }}
+                size={Size50 * 1.5}
+                />
+                <View>
+                    <Text>{nome}</Text>
+                </View>
             </View>
-
+            </View>
           </View>
         </View>
     );

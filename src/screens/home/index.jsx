@@ -176,7 +176,7 @@ export function Home({}) {
   };
 
   return (
-    <ScrollView>
+      <ScrollView>
         <ImageCircleIcon
           size={130}
           sizeIcon={0}
