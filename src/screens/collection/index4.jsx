@@ -9,6 +9,7 @@ import { firebaseApp } from "firebase/firestore";
 import { getDatabase, push, ref } from "firebase/database";
 import { DonorContext } from "../../contexts/donor/context";
 import { useContext } from "react";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export function Collection4({route}) {
   const {donorState, donorDispach} = useContext(DonorContext)
@@ -17,15 +18,15 @@ export function Collection4({route}) {
   const database = getDatabase(firebaseApp);
 
   const user = {
-    id: donorState.uid,
+    id: donorState.id,
     name: donorState.name,
-    photoUrl: basedImage,
+    photoUrl: donorState.photoUrl,
   };
 
   const coletor = {
     id: "none",
     name: "none",
-    photoUrl: "none",
+    photoUrl: require("../../../assets/images/profile.jpg"),
   };
 
   const { tipo, endereco, caixas, sacolas, peso, dia, hora, observacao } = route.params;
@@ -49,7 +50,7 @@ export function Collection4({route}) {
       const userData = {
         id: user?.uid || "none",
         name: user?.name || "none",
-        photoUrl: user?.photoUrl || "none",
+        photoUrl: user?.photoUrl || require("../../../assets/images/profile.jpg"),
       };
   
       const newDocRef = await push(ref(database, 'recyclable'), {
@@ -74,6 +75,7 @@ export function Collection4({route}) {
   }
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <ScrollView>
       <ContainerTop />
       <ContainerTopRegister4 />
@@ -91,5 +93,7 @@ export function Collection4({route}) {
         <SizedBox vertical={30} />
       </View>
     </ScrollView>
+    </GestureHandlerRootView>
+
   );
 }

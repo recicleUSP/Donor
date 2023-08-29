@@ -4,7 +4,6 @@ import { Width, Height, Size20, Size50, FontBold, FontRegular } from "../../../c
 import { ButtonIcon } from "../../../components/buttons";
 import { TextIcon, TextSimple } from "../../../components/texts";
 import { ImageCircleDefault } from "../../../components/images";
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -100,7 +99,7 @@ export const AddressCard2 = ({address, editFn, removeFn}) => {
     );
 }
 
-export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sacolas, user, foto, nome, id }) => {
+export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sacolas, foto, nome, id }) => {
   const navigation = useNavigation();
       return (
         <View style={Style.container}>

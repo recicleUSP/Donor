@@ -8,7 +8,6 @@ import { Size28 } from '../constants/scales'
 
 const Tab = createBottomTabNavigator();
 
-import { Home }   from "../screens/home"
 import { Advice } from "../screens/advice"
 import { Notice } from "../screens/notice"
 import { Profile } from "../screens/profile"

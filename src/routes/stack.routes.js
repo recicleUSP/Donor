@@ -1,6 +1,4 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { TouchableOpacity, Image } from 'react-native';
 
 import { Home } from '../screens/home';
 import { Collection } from '../screens/collection';

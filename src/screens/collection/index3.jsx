@@ -7,6 +7,7 @@ import { Colors,Theme } from "../../constants/setting";
 import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
 import { Checkbox } from "react-native-paper";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export function Collection3({route}) {
   const navigation = useNavigation();
@@ -66,6 +67,7 @@ export function Collection3({route}) {
   };
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView>
         <ContainerTop/>     
         <ContainerTopRegister3/>
@@ -147,5 +149,7 @@ export function Collection3({route}) {
             </View>
             <SizedBox vertical={30} />
       </ScrollView>
+    </GestureHandlerRootView>
+
   );
 }

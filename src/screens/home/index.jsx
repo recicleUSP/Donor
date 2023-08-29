@@ -19,10 +19,11 @@ import { DonorContext } from "../../contexts/donor/context";
 import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
 import { useNavigation } from '@react-navigation/native';
-import { setDoc, getDoc, collection, onSnapshot, addDoc, getFirestore, firebaseApp, Firestore } from "firebase/firestore";
+import { getFirestore, firebaseApp } from "firebase/firestore";
 import { CardHome } from "../address/components/card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { getDatabase, push, ref, get } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export function Home({}) {
   const navigation = useNavigation();
@@ -176,6 +177,7 @@ export function Home({}) {
   };
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView>
         <ImageCircleIcon
           size={130}
@@ -233,5 +235,7 @@ export function Home({}) {
             </ScrollView>
             <SizedBox vertical={5} />
        </ScrollView>
+    </GestureHandlerRootView>
+
   );
 }

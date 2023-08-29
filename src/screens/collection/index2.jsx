@@ -7,6 +7,7 @@ import { Colors,Theme } from "../../constants/setting";
 import { useContext, useState, useEffect } from "react";
 import { SizedBox } from 'sizedbox';
 import { DonorContext } from "../../contexts/donor/context";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export function Collection2({ route }) {
   const {donorState, donorDispach} = useContext(DonorContext)
@@ -23,6 +24,7 @@ export function Collection2({ route }) {
   };
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView>
         <ContainerTop/>     
         <ContainerTopRegister2/>
@@ -68,5 +70,7 @@ export function Collection2({ route }) {
             </View>
             <SizedBox vertical={30} />
       </ScrollView>
+    </GestureHandlerRootView>
+
   );
 }

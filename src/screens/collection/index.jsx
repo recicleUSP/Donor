@@ -5,10 +5,11 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ContainerTop, ContainerTopRegister } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
 import { useContext, useState, useEffect } from "react";
-import { SizedBox } from 'sizedbox';
+import * as sizedbox from 'sizedbox';
 import { Checkbox } from 'react-native-paper';
 import { DonorContext } from "../../contexts/donor/context";
 import { AddressCard2 } from "../address/components/card";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export function Collection({ route }) {
   const navigation = useNavigation();
@@ -53,6 +54,7 @@ export function Collection({ route }) {
   };
 
     return (
+      <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView>
         <ContainerTop/>     
         <ContainerTopRegister/>
@@ -72,7 +74,7 @@ export function Collection({ route }) {
                  color={Colors[Theme][1]}
                  uncheckColor={Colors[Theme][2]}
                />
-               <AddressCard2 address={address} editFn={() => addAddress(address)} key={address.title} />
+               <AddressCard2 address={address} editFn={() => AddressCard2(address)} key={address.title} />
              </View>
            </View>
       ))}
@@ -106,13 +108,15 @@ export function Collection({ route }) {
         </View>
       ))}
     </View>
-        <SizedBox vertical={30} />
+        <sizedbox.SizedBox vertical={30} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={styles.button} onPress={nextPage}>
           <Text style={styles.text }>Cadastrar</Text>
         </TouchableOpacity>
             </View>
-            <SizedBox vertical={30} />
+            <sizedbox.SizedBox vertical={30} />
       </ScrollView>
+      </GestureHandlerRootView>
+
   );
 }
