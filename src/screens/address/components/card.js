@@ -104,17 +104,17 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
       return (
         <View style={Style.container}>
             <View style={Style.row}>
-                <ButtonIcon 
+                {/* <ButtonIcon 
                     btn = {true}
                     name={"minus"}
                     color={Colors[Theme][5]}
                     margin={0}
                     size={Size20*1.4}
-                    // fun={"removeFn"}
+                    fun={"removeFn"}
                     alignSelf="flex-start"
-                />
+                /> */}
                 <Text style={Style.textTitle}>{tipo}</Text>
-                <ButtonIcon 
+                {/* <ButtonIcon 
                     btn = {true}
                     name={"pencil"}
                     color={Colors[Theme][5]}
@@ -122,7 +122,7 @@ export const CardHome = ({ tipo, caixas, coleta, endereco, observacao, peso, sac
                     size={Size20*1.2}
                     // fun={"editFn"}
                     alignSelf="flex-start"
-                />
+                /> */}
             </View>
           <View style={Style.row}>
             <View style={Style.container2}>
@@ -236,7 +236,7 @@ const Style = StyleSheet.create({
       fontWeight: 'bold',
     },
     buttonGreey: {
-      backgroundColor: '#CCCCCC',
+      backgroundColor: Colors[Theme][2],
       borderRadius: 20,
       paddingVertical: 0.1,
       paddingHorizontal: 45,

@@ -90,7 +90,7 @@ export const styles = StyleSheet.create({
       right: 16,
     },
     buttonFlutuante: {
-      backgroundColor: '#10b981',
+      backgroundColor: Colors[Theme][2],
       width: 56,
       height: 56,
       borderRadius: 28,
@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     button2: {
-      backgroundColor: '#10b981',
+      backgroundColor: Colors[Theme][2],
       borderRadius: 20,
       paddingVertical: 16,
       paddingHorizontal: 16,
