@@ -16,7 +16,6 @@ async function requestUserPermission() {
 }
 import { SizedBox } from 'sizedbox';
 import { DonorContext } from "../../contexts/donor/context";
-import { PieChart } from 'react-native-chart-kit';
 import { ImageCircleIcon } from "../../components/images";
 import { useNavigation } from '@react-navigation/native';
 import { getFirestore, firebaseApp } from "firebase/firestore";
@@ -85,56 +84,45 @@ export function Home({}) {
     });
   }, [yourdonorId]);
 
-  const quantidadetypesA = donorData.filter((tarefa) => tarefa.types.includes('Plástico')).length;
-  const quantidadetypesB = donorData.filter((tarefa) => tarefa.types.includes('Metal')).length;
-  const quantidadetypesC = donorData.filter((tarefa) => tarefa.types.includes('Eletrônico')).length;
-  const quantidadetypesD = donorData.filter((tarefa) => tarefa.types.includes('Papel')).length;
-  const quantidadetypesE = donorData.filter((tarefa) => tarefa.types.includes('Óleo')).length;
-  const quantidadetypesF = donorData.filter((tarefa) => tarefa.types.includes('Vidro')).length;
+  // const quantidadetypesA = collectorData.filter((tarefa) => tarefa.types.includes('Plástico')).length;
+  // const quantidadetypesB = collectorData.filter((tarefa) => tarefa.types.includes('Metal')).length;
+  // const quantidadetypesC = collectorData.filter((tarefa) => tarefa.types.includes('Eletrônico')).length;
+  // const quantidadetypesD = collectorData.filter((tarefa) => tarefa.types.includes('Papel')).length;
+  // const quantidadetypesE = collectorData.filter((tarefa) => tarefa.types.includes('Óleo')).length;
+  // const quantidadetypesF = collectorData.filter((tarefa) => tarefa.types.includes('Vidro')).length;
 
-  const data2 = [
-    {
-      name: 'Metal',
-      population: quantidadetypesB,
-      color: '#297AB1',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Plástico',
-      population: quantidadetypesA,
-      color: '#F5A623',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Eletrônico',
-      population: quantidadetypesC,
-      color: '#D33F49',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Óleo',
-      population: quantidadetypesE,
-      color: 'green',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Vidro',
-      population: quantidadetypesF,
-      color: 'pink',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Papel',
-      population: quantidadetypesD,
-      color: 'brown',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
+  const quantidadetypesA = 50; 
+  const quantidadetypesB = 30;
+  const quantidadetypesC = 70;
+  const quantidadetypesD = 40;
+  const quantidadetypesE = 20;
+  const quantidadetypesF = 60;
+
+  // Encontrando o maior valor para normalização
+  const max = Math.max(
+    quantidadetypesA,
+    quantidadetypesB,
+    quantidadetypesC,
+    quantidadetypesD,
+    quantidadetypesE,
+    quantidadetypesF
+  );
+
+  // Normalizando os valores para calcular as alturas das barras
+  const normalizedA = (quantidadetypesA / max) * 100;
+  const normalizedB = (quantidadetypesB / max) * 100;
+  const normalizedC = (quantidadetypesC / max) * 100;
+  const normalizedD = (quantidadetypesD / max) * 100;
+  const normalizedE = (quantidadetypesE / max) * 100;
+  const normalizedF = (quantidadetypesF / max) * 100;
+
+  const barData = [
+    { height: normalizedA, value: quantidadetypesA, color: Colors[Theme][2], label: 'Plástico' },
+    { height: normalizedB, value: quantidadetypesB, color: Colors[Theme][2], label: 'Metal' },
+    { height: normalizedC, value: quantidadetypesC, color: Colors[Theme][2], label: 'Eletrônico' },
+    { height: normalizedD, value: quantidadetypesD, color: Colors[Theme][2], label: 'Papel' },
+    { height: normalizedE, value: quantidadetypesE, color: Colors[Theme][2], label: 'Óleo' },
+    { height: normalizedF, value: quantidadetypesF, color: Colors[Theme][2], label: 'Vidro' },
   ];
 
   useEffect(()=>{
@@ -166,15 +154,6 @@ export function Home({}) {
       donorDispach({type: Types.UPDATE, data: {...donorState, photoUrl: error}, dispatch: donorDispach, cb:updateCB});
     }
   }
-  
-  const chartConfig = {
-    backgroundColor: '#ffffff',
-    backgroundGradientFrom: '#ffffff',
-    backgroundGradientTo: '#ffffff',
-    decimalPlaces: 2,
-    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -198,17 +177,22 @@ export function Home({}) {
         </View>
        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <View>
-      <PieChart
-        data={data2}
-        width={350}
-        height={250}
-        chartConfig={chartConfig}
-        accessor="population"
-        backgroundColor="transparent"
-        paddingLeft="20"
-        center={[10, 0]}
-        hasLegend={true}
-      />
+    <TouchableOpacity style={styles.card}>
+      <View style={{ alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginBottom: 10 }}>
+          <View style={styles.barContainer}>
+            {barData.map((bar, index) => (
+              <View key={index} style={styles.bar}>
+                <View style={[styles.barFill, { height: bar.height, backgroundColor: bar.color }]}>
+                  <Text style={styles.barText}>{bar.value}</Text>
+                </View>
+                <Text style={styles.legend}>{bar.label}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
     </View>
         </View>
        <SizedBox vertical={2} />

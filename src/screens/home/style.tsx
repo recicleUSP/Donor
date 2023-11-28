@@ -29,6 +29,29 @@ export const styles = StyleSheet.create({
       //alignItems:"center",
       marginBottom: 15,
     },
+    barContainer: {
+      flexDirection: 'row',
+      flex: 1,
+      justifyContent: 'space-between',
+    },
+    bar: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    barFill: {
+      width: 20,
+    },
+    barText: {
+      color: '#fff',
+      fontSize: 12,
+      fontWeight: 'bold',
+      alignSelf: 'center',
+    },
+    legend: {
+      marginTop: 5,
+      fontSize: 10,
+      color: 'gray',
+    },
     container: {
       flex: 1,
       alignItems: "center",
