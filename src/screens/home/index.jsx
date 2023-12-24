@@ -3,17 +3,17 @@ import { styles } from "./style";
 import { ContainerTopClean } from "../../components/containers";
 import { Colors,Theme } from "../../constants/setting";
 import { useContext, useState, useEffect } from "react";
-import messaging from '@react-native-firebase/messaging';
-async function requestUserPermission() {
-  const authStatus = await messaging().requestPermission();
-  const enabled =
-    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+//import messaging from '@react-native-firebase/messaging';
+// async function requestUserPermission() {
+//   const authStatus = await messaging().requestPermission();
+//   const enabled =
+//     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+//     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-  if (enabled) {
-    console.log('Authorization status:', authStatus);
-  }
-}
+//   if (enabled) {
+//     console.log('Authorization status:', authStatus);
+//   }
+// }
 import { SizedBox } from 'sizedbox';
 import { DonorContext } from "../../contexts/donor/context";
 import { ImageCircleIcon } from "../../components/images";
@@ -209,13 +209,22 @@ export function Home({}) {
               <Text style={{ color: Colors[Theme][2], textAlign: 'left', padding: 20, fontWeight: 'bold' }}>Histórico</Text>
             </View>
             <ScrollView horizontal>
-            {donorData.map((index) => (
-                <View style={[styles.containerEdit, { marginRight: 50 }]}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <CardHome tipo={index.type} endereco={index.address.name} peso={index.weight} sacolas={index.bags} caixas={index.boxes} foto={index.collector.photoUrl} nome={index.collector.name} id={index.collector.id} key={index} />
-                  </View>
+            {donorData.map((item, index) => (
+              <View style={[styles.containerEdit, { marginRight: 50 }]} key={index}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <CardHome
+                    tipo={item.type}
+                    endereco={item.address.name}
+                    peso={item.weight}
+                    sacolas={item.bags}
+                    caixas={item.boxes}
+                    foto={item.collector.photoUrl}
+                    nome={item.collector.name}
+                    id={item.collector.id}
+                  />
                 </View>
-              ))}
+              </View>
+            ))}
             </ScrollView>
             <SizedBox vertical={5} />
        </ScrollView>
